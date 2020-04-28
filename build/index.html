@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title>Название</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Page description">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body class="page">
+
+  <div class="PipTableGen">
+    <h2 class="PipTableGen__title">PipTableGen v1.0</h2>
+
+    <div class="settings PipTableGen__settings">
+
+      <div class="settings__form">
+        <div class="settings__flex">
+          <div class="settings__wrap">
+            <p class="settings__title">Размеры Полотна</p>
+            <div class="settings__block">
+              <label for="canvas-height" class="settings__label">Высота полотна</label>
+              <input type="number" id="canvas-height" class="settings__input" type="text">
+              <label for="canvas-width" class="settings__label">Ширина полотна</label>
+              <input type="number" id="canvas-width" class="settings__input" type="text">
+            </div>
+          </div>
+
+          <div class="settings__wrap">
+            <p class="settings__title">Размеры Ячейки</p>
+            <div class="settings__block">
+              <label for="cell-height" class="settings__label">Высота ячейки</label>
+              <input type="number" id="cell-height" class="settings__input" type="text">
+              <label for="cell-width" class="settings__label">Ширина ячейки</label>
+              <input type="number" id="cell-width" class="settings__input" type="text">
+            </div>
+          </div>
+
+          <div class="settings__wrap">
+            <p class="settings__title"> Доп параметры</p>
+            <div class="settings__block">
+              <label for="cell-color" class="settings__label">Цвет ячейки</label>
+              <input id="cell-color" class="settings__input" type="text">
+              <label for="cell-border" class="settings__label">Толщина линий</label>
+              <input type="number" id="cell-border" class="settings__input" type="text" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="test">
+        <button class="trigger">Js Сгенерировать</button>
+        <button class="read-btn">Скопировать</button>
+        <div class="test__build"></div>
+      </div>
+
+      <div class="PipTableGen__build">
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/jquery.lazy.min.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/script.min.js"></script>
+</body>
+
+</html>

@@ -4,10 +4,10 @@
 @import "libs/slick.scss";
 
 // global styles
-@import "reset.scss";
+
 @import "variables.scss";
 @import "mixins.scss";
-@import "scaffolding.scss";
+
 @import "fonts.scss";
 @import "svg_sprite.scss";
 
@@ -16,3 +16,6 @@
 @import "../../blocks/form/form.scss";
 @import "../../blocks/modal/modal.scss";
 @import "../../blocks/tabs/tabs.scss";
+
+@import "../../blocks/PipTableGen/PipTableGen.scss";
+@import "../../blocks/settings/settings.scss";

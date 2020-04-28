@@ -1,0 +1,25 @@
+// В этом файле должны быть стили для БЭМ-блока settings, его элементов,
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
+
+.settings {
+	padding-top: 55px;
+}
+
+.settings__flex {
+	display: flex;
+}
+
+.settings__block {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	margin: 10px;
+}
+
+.settings__title {
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+
