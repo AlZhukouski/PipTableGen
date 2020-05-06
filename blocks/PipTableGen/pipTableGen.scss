@@ -3,16 +3,16 @@
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
-.PipTableGen {
+.pipTableGen {
 	@include container;
 	padding-top: 45px;
 }
 
-.PipTableGen__title {
+.pipTableGen__title {
 	text-align: center;
 }
 
-.PipTableGen__build {
+.pipTableGen__build {
 	max-height: 1000px;
 	overflow: auto;
 	margin-top: 50px;

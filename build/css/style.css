@@ -2174,7 +2174,7 @@ img.mfp-img {
   100% {
     opacity: 1; } }
 
-.PipTableGen {
+.pipTableGen {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -2182,10 +2182,10 @@ img.mfp-img {
           box-sizing: border-box;
   padding-top: 45px; }
 
-.PipTableGen__title {
+.pipTableGen__title {
   text-align: center; }
 
-.PipTableGen__build {
+.pipTableGen__build {
   max-height: 1000px;
   overflow: auto;
   margin-top: 50px;
@@ -2213,6 +2213,15 @@ img.mfp-img {
 .settings__title {
   font-size: 18px;
   margin-bottom: 15px; }
+
+.settings__block-error {
+  font-weight: bold;
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  min-height: 1.5em; }
 
 @media (max-width: 1200px) {
   .slick-arrow {

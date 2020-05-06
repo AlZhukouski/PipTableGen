@@ -12,30 +12,42 @@
 
 <body class="page">
 
-<div class="PipTableGen">
-	<h2 class="PipTableGen__title">PipTableGen v1.0</h2>
+<div class="pipTableGen">
+	<h2 class="pipTableGen__title">pipTableGen v1.0</h2>
 
-	<div class="settings PipTableGen__settings">
+	<div class="settings pipTableGen__settings">
 
 		<div class="settings__form">
 			<div class="settings__flex">
 				<div class="settings__wrap">
 					<p class="settings__title">Размеры Полотна</p>
 					<div class="settings__block">
-						<label for="canvas-height" class="settings__label">Высота полотна</label>
-						<input type="number" id="canvas-height" class="settings__input" type="text">
-						<label for="canvas-width" class="settings__label">Ширина полотна</label>
-						<input type="number" id="canvas-width" class="settings__input" type="text">
+						<div class="settings__block-wrap">
+							<label for="canvas-height" class="settings__label">Высота полотна</label>
+							<input type="number" id="canvas-height" class="settings__input" type="text">
+							<p id="errorCanH" class="settings__block-error"></p>
+						</div>
+						<div class="settings__block-wrap">
+							<label for="canvas-width" class="settings__label">Ширина полотна</label>
+							<input type="number" id="canvas-width" class="settings__input" type="text">
+							<p id="errorCanW" class="settings__block-error"></p>
+						</div>
 					</div>
 				</div>
 
 				<div class="settings__wrap">
 					<p class="settings__title">Размеры Ячейки</p>
 					<div class="settings__block">
-						<label for="cell-height" class="settings__label">Высота ячейки</label>
-						<input type="number" id="cell-height" class="settings__input" type="text">
-						<label for="cell-width" class="settings__label">Ширина ячейки</label>
-						<input type="number" id="cell-width" class="settings__input" type="text">
+						<div class="settings__block-wrap">
+							<label for="cell-height" class="settings__label">Высота ячейки</label>
+							<input type="number" id="cell-height" class="settings__input" type="text">
+							<p id="errorCellH" class="settings__block-error"></p>
+						</div>
+						<div class="settings__block-wrap">
+							<label for="cell-width" class="settings__label">Ширина ячейки</label>
+							<input type="number" id="cell-width" class="settings__input" type="text">
+							<p id="errorCellW" class="settings__block-error"></p>
+						</div>
 					</div>
 				</div>
 
@@ -43,9 +55,9 @@
 					<p class="settings__title"> Доп параметры</p>
 					<div class="settings__block">
 						<label for="cell-color" class="settings__label">Цвет ячейки</label>
-						<input id="cell-color" class="settings__input" type="text">
-						<label for="cell-border" class="settings__label">Толщина линий</label>
-						<input type="number" id="cell-border" class="settings__input" type="text" disabled>
+						<input id="cell-color" class="settings__inputs jscolor {onFineChange:'update(this)'}" value="fbfbfb">
+						<label for="border-color" class="settings__label">Цвет линий</label>
+						<input id="border-color" class="settings__inputs jscolor {onFineChange:'update(this)'}" value="afafaf">
 					</div>
 				</div>
 			</div>
@@ -54,10 +66,16 @@
 		<div class="test">
 			<button class="trigger">Js Сгенерировать</button>
 			<button class="read-btn">Скопировать</button>
+			<div class="settings__error"></div>
 			<div class="test__build"></div>
 		</div>
 
-		<div class="PipTableGen__build">
+		<div class="pipTableGen__info">
+			<p class="pipTableGen__size">Размер таблицы <span class="pipTableGen__col"></span>X<span class="pipTableGen__row"></span></p>
+			<p class="pipTableGen__amount">Количество ячеек <span class="pipTableGen__amount">200</span></p>
+		</div>
+
+		<div class="pipTableGen__build">
 
 		</div>
 
@@ -71,6 +89,7 @@
 <script src="js/jquery.lazy.min.js"></script>
 <script src="js/jquery.nice-select.min.js"></script>
 <script src="js/jquery.fancybox.min.js"></script>
+<script src="js/jscolor.js"></script>
 <script src="js/script.min.js"></script>
 </body>
 </html>
