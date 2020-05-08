@@ -1840,7 +1840,7 @@ $(document).ready(function () {
   }
 }); //Генерация таблицы Полотно с ячейками
 
-function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight) {
+function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption) {
   var quotes = '';
   var content = ''; //переменная в которую сгенерируется код таблицы
 
@@ -1879,8 +1879,12 @@ function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight
 
     for (var y = 0; y < column; y++) {
       cellContents++;
-      content += tableDataStart;
-      content += cellContents;
+      content += tableDataStart; //если стоит опция нумерация ячеек то добавим ее в ячейки
+
+      if (cellContentsOption == 'numbering') {
+        content += cellContents;
+      }
+
       content += tableDataEnd;
     }
 
@@ -1922,9 +1926,8 @@ function checkingValues(w1, h1, w2, h2) {
     count++;
   } else {
     $('#errorCellH').empty().append('Введите положительное число.');
-  }
+  } //проверим если парраметры введены верные, высота и ширина полотна больше либо равны высоте  и ширине ячейки, то таблицу можно строить
 
-  console.log(count); //проверим если парраметры введены верные, высота и ширина полотна больше либо равны высоте  и ширине ячейки, то таблицу можно строить
 
   if (+w1 >= +w2 && +h1 >= +h2 && count == 4) {
     $('.settings__error').empty();
@@ -1945,28 +1948,29 @@ function tableResult() {
   //запустим функцию очистки данных
   dataСleaning(); //получим значение форм для генерации таблицы
 
-  var canvasHeight, canvasWidth, cellHeight, cellWidth, bgColor, borderColor;
+  var canvasHeight, canvasWidth, cellHeight, cellWidth, bgColor, borderColor, cellContentsOption;
   canvasWidth = $('#canvas-width').val();
   canvasHeight = $('#canvas-height').val();
   cellWidth = $('#cell-width').val();
   cellHeight = $('#cell-height').val();
   bgColor = $('#cell-color').val();
-  borderColor = $('#border-color').val(); //проверим корректность значений и если все верно запустим генерацию таблицы
+  borderColor = $('#border-color').val();
+  cellContentsOption = $('#cellContentsOption').val(); //проверим корректность значений и если все верно запустим генерацию таблицы
 
   if (checkingValues(canvasWidth, canvasHeight, cellWidth, cellHeight)) {
     //рассчитываем таблицу
     var row, col;
-    row = Math.floor(+canvasWidth / +cellWidth);
-    col = Math.floor(+canvasHeight / +cellHeight); //добавим данные о таблице
+    row = Math.floor(+canvasHeight / +cellHeight);
+    col = Math.floor(+canvasWidth / +cellWidth); //добавим данные о таблице
 
     $('.pipTableGen__col').empty().append(col);
     $('.pipTableGen__row').empty().append(row);
     $('.pipTableGen__amount').empty().append(row * col); //Сгенерируем таблицу по парраметрам
 
-    tableCode = tableGenerator(row, col, bgColor, borderColor, cellWidth, cellHeight);
+    tableCode = tableGenerator(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption);
     $('.pipTableGen__build-wrap').empty().append(tableCode); //Контейнеру в который закинем таблицу определим минимальную ширину равную ширине полотна что бы ячейки не сжимались
 
-    $('.pipTableGen__build-wrap').css('min-width', canvasWidth + 'px'); //Активируем кнопку Скопировать
+    $('.pipTableGen__build-wrap').css('min-width', col * +cellWidth + 'px').css('min-height', row * +cellHeight + 'px'); //Активируем кнопку Скопировать
 
     $('.pipTableGen__copy-btn').removeAttr("disabled");
   }
