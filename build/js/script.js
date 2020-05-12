@@ -1840,8 +1840,7 @@ $(document).ready(function () {
   }
 }); //Генерация таблицы Полотно с ячейками
 
-function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption) {
-  var quotes = '';
+function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes) {
   var content = ''; //переменная в которую сгенерируется код таблицы
 
   var cellContents = 0; //переменная содержимое ячейки
@@ -1852,14 +1851,14 @@ function tableGenerator(row, column, bgColor, borderColor, cellWidth, cellHeight
       tableRowStart = '',
       tableRowEnd = '',
       tableDataStart = '',
-      tableDataEnd = ''; //Выбираем по парраметру  какую таблицу построить
+      tableDataEnd = ''; //Выбираем по парраметру  какую таблицу построить, с кавычками по синтаксису планфикса или html
 
-  if (quotes == '-q') {
+  if (quotes) {
     tableStart = '"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all">';
     tableEnd = '</table>"';
     tableRowStart = '<tr>';
     tableRowEnd = '</tr>';
-    tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""150""+" width="+""80">';
+    tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""' + cellHeight + '""+" width="+""' + cellWidth + '">';
     tableDataEnd = '</td>'; //без кавычек таблица
   } else {
     tableStart = '<table cellpadding="10" border="1" bordercolor="#' + borderColor + '" rules="all">';
@@ -1967,12 +1966,14 @@ function tableResult() {
     $('.pipTableGen__row').empty().append(row);
     $('.pipTableGen__amount').empty().append(row * col); //Сгенерируем таблицу по парраметрам
 
-    tableCode = tableGenerator(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption);
+    tableCode = tableGenerator(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, false);
     $('.pipTableGen__build-wrap').empty().append(tableCode); //Контейнеру в который закинем таблицу определим минимальную ширину равную ширине полотна что бы ячейки не сжимались
 
     $('.pipTableGen__build-wrap').css('min-width', col * +cellWidth + 'px').css('min-height', row * +cellHeight + 'px'); //Активируем кнопку Скопировать
 
-    $('.pipTableGen__copy-btn').removeAttr("disabled");
+    $('.pipTableGen__copy-btn').removeAttr("disabled"); //Генерация для планфикса диапазона таблиц
+
+    planfixTablesGen(cellWidth, cellHeight, canvasWidth, canvasHeight);
   }
 } // функция в которой хранится очистка данных перед построением таблицы
 
@@ -1995,7 +1996,53 @@ $('.pipTableGen__copy-btn').on('click', function () {
   }, function (err) {
     console.error('Async: Could not copy text: ', err);
   });
-});
+}); //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
+
+function planfixTablesGen(W1, H1, W2, H2) {
+  //W-ширина,H-высота
+  //1-ячейка
+  //2-холст
+  // Формула из планфикса
+  // если(И(W1>=H1;W2>=H2);
+  // если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
+  // "Лист меньше бумаги1");
+  console.log('W1= ' + W1 + ' ' + ' H1= ' + H1 + ' ' + ' W2= ' + W2 + ' ' + ' H2= ' + H2);
+  var planfixFormula = ''; // Сравним парраметры ячейки и холста и про принципу делим большее на большее, меньшее на меньшее , тоесть большую сторону хослта на большую сторону ячейки
+
+  if (+W1 >= +H1 && +W2 >= +H2) {
+    console.log('true - 1'); //
+
+    for (var i = 0; i != Math.floor(+W2 / +W1); i++) {
+      console.log('Цикл колонок' + ' i= ' + i);
+
+      for (var y = 0; y != Math.floor(+H2 / +H1); y++) {
+        console.log('Внутренний цикл рядов' + ' y= ' + y + ' i= ' + i);
+      }
+    }
+  } else {
+    console.log('false - 1');
+  }
+} // функция скачивания файла
+
+
+function writeFile(name, value) {
+  var val = value;
+
+  if (value === undefined) {
+    val = "";
+  }
+
+  var download = document.createElement("a");
+  download.href = "data:text/plain;content-disposition=attachment;filename=file," + val;
+  download.download = name;
+  download.style.display = "none";
+  download.id = "download";
+  document.body.appendChild(download);
+  document.getElementById("download").click();
+  document.body.removeChild(download);
+} //writeFile("9dksk239xwd.txt", "jxowsjsivneic");
+
+
 jQuery(document).ready(function ($) {
   var tabs = $('.tabs');
   tabs.each(function () {

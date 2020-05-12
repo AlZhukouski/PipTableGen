@@ -2,102 +2,102 @@
 <html lang="ru">
 
 <head>
-  <title>Название</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Page description">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/style.min.css">
+	<title>Название</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Page description">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body class="page">
 
-  <div class="pipTableGen">
-    <h2 class="pipTableGen__title">pipTableGen v1.0</h2>
+<div class="pipTableGen">
+	<h2 class="pipTableGen__title">pipTableGen v1.0</h2>
 
-    <div class="settings pipTableGen__settings">
+	<div class="settings pipTableGen__settings">
 
-      <div class="settings__form">
-        <div class="settings__flex">
-          <div class="settings__wrap">
-            <p class="settings__title">Размеры Полотна</p>
-            <div class="settings__block">
-              <div class="settings__block-wrap">
-                <label for="canvas-height" class="settings__label">Высота полотна</label>
-                <input type="number" id="canvas-height" class="settings__input" type="text">
-                <p id="errorCanH" class="settings__block-error"></p>
-              </div>
-              <div class="settings__block-wrap">
-                <label for="canvas-width" class="settings__label">Ширина полотна</label>
-                <input type="number" id="canvas-width" class="settings__input" type="text">
-                <p id="errorCanW" class="settings__block-error"></p>
-              </div>
-            </div>
-          </div>
+		<div class="settings__form">
+			<div class="settings__flex">
+				<div class="settings__wrap">
+					<p class="settings__title">Размеры Полотна</p>
+					<div class="settings__block">
+						<div class="settings__block-wrap">
+							<label for="canvas-height" class="settings__label">Высота полотна</label>
+							<input type="number" id="canvas-height" class="settings__input" type="text">
+							<p id="errorCanH" class="settings__block-error"></p>
+						</div>
+						<div class="settings__block-wrap">
+							<label for="canvas-width" class="settings__label">Ширина полотна</label>
+							<input type="number" id="canvas-width" class="settings__input" type="text">
+							<p id="errorCanW" class="settings__block-error"></p>
+						</div>
+					</div>
+				</div>
 
-          <div class="settings__wrap">
-            <p class="settings__title">Размеры Ячейки</p>
-            <div class="settings__block">
-              <div class="settings__block-wrap">
-                <label for="cell-height" class="settings__label">Высота ячейки</label>
-                <input type="number" id="cell-height" class="settings__input" type="text">
-                <p id="errorCellH" class="settings__block-error"></p>
-              </div>
-              <div class="settings__block-wrap">
-                <label for="cell-width" class="settings__label">Ширина ячейки</label>
-                <input type="number" id="cell-width" class="settings__input" type="text">
-                <p id="errorCellW" class="settings__block-error"></p>
-              </div>
-            </div>
-          </div>
+				<div class="settings__wrap">
+					<p class="settings__title">Размеры Ячейки</p>
+					<div class="settings__block">
+						<div class="settings__block-wrap">
+							<label for="cell-height" class="settings__label">Высота ячейки</label>
+							<input type="number" id="cell-height" class="settings__input" type="text">
+							<p id="errorCellH" class="settings__block-error"></p>
+						</div>
+						<div class="settings__block-wrap">
+							<label for="cell-width" class="settings__label">Ширина ячейки</label>
+							<input type="number" id="cell-width" class="settings__input" type="text">
+							<p id="errorCellW" class="settings__block-error"></p>
+						</div>
+					</div>
+				</div>
 
-          <div class="settings__wrap">
-            <p class="settings__title"> Доп параметры</p>
-            <div class="settings__block">
-              <label for="cell-color" class="settings__label">Цвет ячейки</label>
-              <input id="cell-color" class="settings__inputs jscolor" value="fbfbfb">
-              <label for="border-color" class="settings__label">Цвет линий</label>
-              <input id="border-color" class="settings__inputs jscolor" value="afafaf">
-              <label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
-              <select id="cellContentsOption" class="settings__select">
-                <option value="numbering" selected>Нумерация</option>
-                <option value="empty">Пустые ячейки</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
+				<div class="settings__wrap">
+					<p class="settings__title"> Доп параметры</p>
+					<div class="settings__block">
+						<label for="cell-color" class="settings__label">Цвет ячейки</label>
+						<input id="cell-color" class="settings__inputs jscolor" value="fbfbfb">
+						<label for="border-color" class="settings__label">Цвет линий</label>
+						<input id="border-color" class="settings__inputs jscolor" value="afafaf">
+						<label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
+						<select id="cellContentsOption" class="settings__select">
+							<option value="numbering" selected>Нумерация</option>
+							<option value="empty">Пустые ячейки</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
 
-      <div class="test">
-        <button class="trigger">Js Сгенерировать</button>
-        <button class="pipTableGen__copy-btn" disabled>Скопировать</button>
-        <div class="settings__error"></div>
-        <div class="test__build"></div>
-      </div>
+		<div class="test">
+			<button class="trigger">Js Сгенерировать</button>
+			<button class="pipTableGen__copy-btn" disabled>Скопировать</button>
+			<div class="settings__error"></div>
+			<div class="test__build"></div>
+		</div>
 
-      <div class="pipTableGen__info">
-        <p class="pipTableGen__size">Размер таблицы <span class="pipTableGen__col"></span>X<span class="pipTableGen__row"></span></p>
-        <p class="pipTableGen__amount-text">Количество ячеек - <span class="pipTableGen__amount"></span> шт.</p>
-      </div>
+		<div class="pipTableGen__info">
+			<p class="pipTableGen__size">Размер таблицы <span class="pipTableGen__col"></span>X<span
+				class="pipTableGen__row"></span></p>
+			<p class="pipTableGen__amount-text">Количество ячеек - <span class="pipTableGen__amount"></span> шт.</p>
+		</div>
 
-      <div class="pipTableGen__build">
-        <div class="pipTableGen__build-wrap">
+		<div class="pipTableGen__build">
+			<div class="pipTableGen__build-wrap">
 
-        </div>
-      </div>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-  </div>
+</div>
 
 
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/slick.min.js"></script>
-  <script src="js/jquery.lazy.min.js"></script>
-  <script src="js/jquery.nice-select.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jscolor.js"></script>
-  <script src="js/script.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/jquery.lazy.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
+<script src="js/jscolor.js"></script>
+<script src="js/script.min.js"></script>
 </body>
-
 </html>
