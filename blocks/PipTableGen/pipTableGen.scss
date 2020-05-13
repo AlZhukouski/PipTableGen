@@ -18,3 +18,20 @@
 	margin-top: 50px;
 	margin-bottom: 35px;
 }
+
+.pipTableGen__preloader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 10000;
+	//background:rgba(0, 0, 0, 0.85);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pipTableGen__preloader--active {
+	display: flex;
+}

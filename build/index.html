@@ -13,6 +13,10 @@
 <body class="page">
 
 <div class="pipTableGen">
+	<div style="display: none" class="pipTableGen__preloader">
+		<img src="img/preloader.gif" alt="">
+	</div>
+
 	<h2 class="pipTableGen__title">pipTableGen v1.0</h2>
 
 	<div class="settings pipTableGen__settings">
@@ -23,13 +27,13 @@
 					<p class="settings__title">Размеры Полотна</p>
 					<div class="settings__block">
 						<div class="settings__block-wrap">
-							<label for="canvas-height" class="settings__label">Высота полотна</label>
-							<input type="number" id="canvas-height" class="settings__input" type="text">
+							<label for="canvas-size-1" class="settings__label">Размер 1</label>
+							<input type="number" id="canvas-size-1" class="settings__input" type="text">
 							<p id="errorCanH" class="settings__block-error"></p>
 						</div>
 						<div class="settings__block-wrap">
-							<label for="canvas-width" class="settings__label">Ширина полотна</label>
-							<input type="number" id="canvas-width" class="settings__input" type="text">
+							<label for="canvas-size-2" class="settings__label">Размер 2</label>
+							<input type="number" id="canvas-size-2" class="settings__input" type="text">
 							<p id="errorCanW" class="settings__block-error"></p>
 						</div>
 					</div>
@@ -39,13 +43,13 @@
 					<p class="settings__title">Размеры Ячейки</p>
 					<div class="settings__block">
 						<div class="settings__block-wrap">
-							<label for="cell-height" class="settings__label">Высота ячейки</label>
-							<input type="number" id="cell-height" class="settings__input" type="text">
+							<label for="cell-size-1" class="settings__label">Размер 1</label>
+							<input type="number" id="cell-size-1" class="settings__input" type="text">
 							<p id="errorCellH" class="settings__block-error"></p>
 						</div>
 						<div class="settings__block-wrap">
-							<label for="cell-width" class="settings__label">Ширина ячейки</label>
-							<input type="number" id="cell-width" class="settings__input" type="text">
+							<label for="cell-size-2" class="settings__label">Размер 2</label>
+							<input type="number" id="cell-size-2" class="settings__input" type="text">
 							<p id="errorCellW" class="settings__block-error"></p>
 						</div>
 					</div>

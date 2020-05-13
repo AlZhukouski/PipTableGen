@@ -2191,6 +2191,28 @@ img.mfp-img {
   margin-top: 50px;
   margin-bottom: 35px; }
 
+.pipTableGen__preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.pipTableGen__preloader--active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
 .settings {
   padding-top: 55px; }
 
