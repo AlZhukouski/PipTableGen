@@ -7,12 +7,17 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 	let tableStart = '', tableEnd = '', tableRowStart = '', tableRowEnd = '', tableDataStart = '', tableDataEnd = '';
 
 	//Выбираем по парраметру  какую таблицу построить, с кавычками по синтаксису планфикса или html
+	//"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#afafaf""+" rules="+""all""+">
+	// <tr>
+	// <td align="+""center""+" valign="+""center""+" bgcolor="+""#fbfbfb""+" height="+""75""+" width="+""40""+">1</td>
+	// </tr>
+	// </table>"
 	if (quotes) {
-		tableStart = '"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all">';
+		tableStart = '"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all""+">';
 		tableEnd = '</table>"';
 		tableRowStart = '<tr>';
 		tableRowEnd = '</tr>';
-		tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""' + cellsize2 + '""+" width="+""' + cellsize1 + '">';
+		tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""' + cellsize2 + '""+" width="+""' + cellsize1 + '""+">';
 		tableDataEnd = '</td>';
 		//без кавычек таблица
 	} else {
@@ -90,9 +95,9 @@ function checkingValues(w1, h1, w2, h2) {
 	}
 }
 
+//Переменные хранения результата функций
+let tableCode, planfixformula;
 //функция построение нужной таблицы с проверками
-let tableCode;
-
 function tableResult() {
 	//запустим функцию очистки данных
 	dataСleaning();
@@ -119,7 +124,6 @@ function tableResult() {
 			lowerCanvasSize = +canvasSize2;
 			largeCellSize = +cellsize1;
 			lowerCellSize = +cellsize2;
-			console.log('1')
 		} else {
 			row = Math.floor(+canvasSize1 / +cellsize2);
 			col = Math.floor(+canvasSize2 / +cellsize1);
@@ -127,7 +131,6 @@ function tableResult() {
 			lowerCanvasSize = +canvasSize2;
 			largeCellSize = +cellsize2;
 			lowerCellSize = +cellsize1;
-			console.log('2')
 		}
 	} else {
 		if (+cellsize1 > +cellsize2) {
@@ -137,7 +140,6 @@ function tableResult() {
 			lowerCanvasSize = +canvasSize1;
 			largeCellSize = +cellsize1;
 			lowerCellSize = +cellsize2;
-			console.log('3')
 		} else {
 			row = Math.floor(+canvasSize2 / +cellsize1);
 			col = Math.floor(+canvasSize1 / +cellsize2);
@@ -145,7 +147,6 @@ function tableResult() {
 			lowerCanvasSize = +canvasSize1;
 			largeCellSize = +cellsize2;
 			lowerCellSize = +cellsize1;
-			console.log('4')
 		}
 	}
 
@@ -168,8 +169,7 @@ function tableResult() {
 		$('.pipTableGen__copy-btn').removeAttr("disabled");
 
 		//Генерация для планфикса диапазона таблиц
-		planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true);
-
+		planfixformula=planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true);
 	}
 
 }
@@ -184,18 +184,6 @@ function dataСleaning() {
 	tableCode = '';
 }
 
-//по триггеру генерируем таблицу
-$('.trigger').on('click', tableResult);
-
-//копируем в буфер обмена
-$('.pipTableGen__copy-btn').on('click', function () {
-	navigator.clipboard.writeText(tableCode).then(function () {
-		console.log('Async: Copying to clipboard was successful!');
-	}, function (err) {
-		console.error('Async: Could not copy text: ', err);
-	});
-});
-
 //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
 
 function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes) {
@@ -203,37 +191,76 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
 	//1-ячейка
 	//2-холст
 
-	// Формула из планфикса
-	// если(И(W1>=H1;W2>=H2);
-	// если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
-	// "Лист меньше бумаги1");
-	console.log('row= ' + row + ' col= ' + col + ' largeCellSize= ' + largeCellSize + ' lowerCellSize= ' + lowerCellSize + ' largeCanvasSize= ' + largeCanvasSize + ' lowerCanvasSize= ' + lowerCanvasSize);
-
 	let planfixFormula1 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.W2}}>={{Задача.H2}});',
 			planfixFormula2 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.H2}}>={{Задача.W2}});',
 			planfixFormula3 = 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.W2}}>={{Задача.H2}});',
 			planfixFormula4= 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.H2}}>={{Задача.W2}});',
-			planfixFormulaElse = '"Лист меньше бумаги1");',
-			planfixFormula='"Конец всех исходов")))))';
+			planfixFormulaElse = '"Лист меньше бумаги1"',
+			planfixFormulaEnd='"Конец всех исходов"))))',
+			result='';
 
 
 	for (let i = 1; i <= row; i++) {
-		console.log('Цикл рядов' + ' i= ' + i);
-
 		for (let y = 1; y <= col; y++) {
-			//console.log('Внутренний цикл колонок' + ' y= ' + y + ' i= ' + i);
+			//сформируем количество закрывающихся скобок
+			planfixFormulaElse += ')';
+
+			// Формула из планфикса
+			// если(И(W1>=H1;W2>=H2);
+			// если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
+			// "Лист меньше бумаги1");
 			planfixFormula1+='если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + i + ');';
 			planfixFormula1+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
 			planfixFormula1+=';';
+
+			//если(И(W1>=H1;H2>=W2);
+			//если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
+			//"Лист меньше бумаги1");
+			planfixFormula2+='если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + i + ');';
+			planfixFormula2+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula2+=';';
+
+			//если(И(H1>=W1;W2>=H2);
+			//если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
+			//"Лист меньше бумаги1");
+			planfixFormula3+='если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + i + ');';
+			planfixFormula3+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula3+=';';
+
+			//если(И(H1>=W1;H2>=W2);
+			//если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
+			//"Лист меньше бумаги1");
+			planfixFormula4+='если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + i + ');';
+			planfixFormula4+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula4+=';';
 		}
-		console.log('');
 	}
-	console.log("planfixFormula1");
-	console.log(planfixFormula1);
+	planfixFormulaElse += ';';
+
+	result = planfixFormula1 + planfixFormulaElse + planfixFormula2 + planfixFormulaElse + planfixFormula3 + planfixFormulaElse + planfixFormula4 + planfixFormulaElse + planfixFormulaEnd;
+
+	return result;
 }
 
+//по триггеру генерируем таблицу
+$('.trigger').on('click', tableResult);
+
+//копируем в буфер обмена
+$('.pipTableGen__copy-btn').on('click', function () {
+	navigator.clipboard.writeText(planfixformula).then(function () {
+		console.log('Async: Copying to clipboard was successful!');
+	}, function (err) {
+		console.error('Async: Could not copy text: ', err);
+	});
+});
+
+
+
+
+//пока не работает
 // функция скачивания файла
 function writeFile(name, value) {
+
 	var val = value;
 	if (value === undefined) {
 		val = "";
@@ -248,5 +275,10 @@ function writeFile(name, value) {
 	document.body.removeChild(download);
 }
 
-//writeFile("9dksk239xwd.txt", "jxowsjsivneic");
+//по триггеру загрузим файл с планфикс формулой
+$('.pipTableGen__download-btn').on('click', function() {
+	writeFile("123.txt", planfixformula)
+});
+
+
 
