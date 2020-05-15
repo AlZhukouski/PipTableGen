@@ -97,13 +97,15 @@ function checkingValues(w1, h1, w2, h2) {
 
 //Переменные хранения результата функций
 let tableCode, planfixformula;
+
 //функция построение нужной таблицы с проверками
 function tableResult() {
 	//запустим функцию очистки данных
 	dataСleaning();
 
 //получим значение форм для генерации таблицы
-	var canvasSize2, canvasSize1, cellsize2, cellsize1, bgColor, borderColor, cellContentsOption;
+	var canvasSize2, canvasSize1, cellsize2, cellsize1, bgColor, borderColor, cellContentsOption, W1, H1, W2, H2,
+		message1, message2;
 	canvasSize1 = $('#canvas-size-1').val();
 	canvasSize2 = $('#canvas-size-2').val();
 	cellsize1 = $('#cell-size-1').val();
@@ -111,6 +113,12 @@ function tableResult() {
 	bgColor = $('#cell-color').val();
 	borderColor = $('#border-color').val();
 	cellContentsOption = $('#cellContentsOption').val();
+	W1 = $('#canvas-name-1').val();
+	H1 = $('#canvas-name-2').val();
+	W2 = $('#cell-name-1').val();
+	H2 = $('#cell-name-2').val();
+	message1 = $('#message1').val();
+	message2 = $('#message2').val();
 
 	//рассчитываем ряды и колонки по правилу большое на большое, меньшее на меньшее
 	// отрисовка таблицы будет зависеть какой парраметр попадет в колонку а какой в ряд, можно добавить чекбокс для поворота таблицы
@@ -169,7 +177,7 @@ function tableResult() {
 		$('.pipTableGen__copy-btn').removeAttr("disabled");
 
 		//Генерация для планфикса диапазона таблиц
-		planfixformula=planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true);
+		planfixformula = planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
 	}
 
 }
@@ -186,18 +194,18 @@ function dataСleaning() {
 
 //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
 
-function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes) {
+function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes, W1, H1, W2, H2, message1, message2) {
 	//W-ширина,H-высота
 	//1-ячейка
 	//2-холст
 
-	let planfixFormula1 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.W2}}>={{Задача.H2}});',
-			planfixFormula2 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.H2}}>={{Задача.W2}});',
-			planfixFormula3 = 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.W2}}>={{Задача.H2}});',
-			planfixFormula4= 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.H2}}>={{Задача.W2}});',
-			planfixFormulaElse = '"Лист меньше бумаги1"',
-			planfixFormulaEnd='"Конец всех исходов"))))',
-			result='';
+	let planfixFormula1 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
+		planfixFormula2 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
+		planfixFormula3 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
+		planfixFormula4 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
+		planfixFormulaElse = '"' + message1 + '"',
+		planfixFormulaEnd = '"' + message2 + '"))))',
+		result = '';
 
 
 	for (let i = 1; i <= row; i++) {
@@ -209,30 +217,30 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
 			// если(И(W1>=H1;W2>=H2);
 			// если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
 			// "Лист меньше бумаги1");
-			planfixFormula1+='если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + i + ');';
-			planfixFormula1+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
-			planfixFormula1+=';';
+			planfixFormula1 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
+			planfixFormula1 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula1 += ';';
 
 			//если(И(W1>=H1;H2>=W2);
 			//если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula2+='если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + i + ');';
-			planfixFormula2+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
-			planfixFormula2+=';';
+			planfixFormula2 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
+			planfixFormula2 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula2 += ';';
 
 			//если(И(H1>=W1;W2>=H2);
 			//если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula3+='если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + i + ');';
-			planfixFormula3+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
-			planfixFormula3+=';';
+			planfixFormula3 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + i + ');';
+			planfixFormula3 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula3 += ';';
 
 			//если(И(H1>=W1;H2>=W2);
 			//если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula4+='если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + i + ');';
-			planfixFormula4+=tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
-			planfixFormula4+=';';
+			planfixFormula4 += 'если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + i + ');';
+			planfixFormula4 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula4 += ';';
 		}
 	}
 	planfixFormulaElse += ';';
@@ -255,8 +263,6 @@ $('.pipTableGen__copy-btn').on('click', function () {
 });
 
 
-
-
 //пока не работает
 // функция скачивания файла
 function writeFile(name, value) {
@@ -276,7 +282,7 @@ function writeFile(name, value) {
 }
 
 //по триггеру загрузим файл с планфикс формулой
-$('.pipTableGen__download-btn').on('click', function() {
+$('.pipTableGen__download-btn').on('click', function () {
 	writeFile("123.txt", planfixformula)
 });
 
