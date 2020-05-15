@@ -1838,51 +1838,6 @@ $(document).ready(function () {
   function closePopup() {
     $.magnificPopup.close();
   }
-});
-jQuery(document).ready(function ($) {
-  var tabs = $('.tabs');
-  tabs.each(function () {
-    var tab = $(this),
-        tabItems = tab.find('ul.tabs__navigation'),
-        tabContentWrapper = tab.children('ul.tabs__content'),
-        tabNavigation = tab.find('nav');
-    tabItems.on('click', 'a', function (event) {
-      event.preventDefault();
-      var selectedItem = $(this);
-
-      if (!selectedItem.hasClass('selected')) {
-        var selectedTab = selectedItem.data('content'),
-            selectedContent = tabContentWrapper.find('li[data-content="' + selectedTab + '"]'),
-            selectedContentHeight = selectedContent.innerHeight();
-        tabItems.find('a.selected').removeClass('selected');
-        selectedItem.addClass('selected');
-        selectedContent.addClass('selected').siblings('li').removeClass('selected');
-      }
-    }); //hide the .tabs::after element when tabbed navigation has scrolled to the end (mobile version)
-
-    checkScrolling(tabNavigation);
-    tabNavigation.on('scroll', function () {
-      checkScrolling($(this));
-    });
-  });
-  $(window).on('resize', function () {
-    tabs.each(function () {
-      var tab = $(this);
-      checkScrolling(tab.find('nav'));
-      tab.find('.tabs__content').css('height', 'auto');
-    });
-  });
-
-  function checkScrolling(tabs) {
-    var totalTabWidth = parseInt(tabs.children('.tabs__navigation').width()),
-        tabsViewport = parseInt(tabs.width());
-
-    if (tabs.scrollLeft() >= totalTabWidth - tabsViewport) {
-      tabs.parent('.tabs').addClass('is-ended');
-    } else {
-      tabs.parent('.tabs').removeClass('is-ended');
-    }
-  }
 }); //Генерация таблицы Полотно с ячейками
 
 function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2, cellContentsOption, quotes) {
@@ -1997,14 +1952,20 @@ function tableResult() {
   //запустим функцию очистки данных
   dataСleaning(); //получим значение форм для генерации таблицы
 
-  var canvasSize2, canvasSize1, cellsize2, cellsize1, bgColor, borderColor, cellContentsOption;
+  var canvasSize2, canvasSize1, cellsize2, cellsize1, bgColor, borderColor, cellContentsOption, W1, H1, W2, H2, message1, message2;
   canvasSize1 = $('#canvas-size-1').val();
   canvasSize2 = $('#canvas-size-2').val();
   cellsize1 = $('#cell-size-1').val();
   cellsize2 = $('#cell-size-2').val();
   bgColor = $('#cell-color').val();
   borderColor = $('#border-color').val();
-  cellContentsOption = $('#cellContentsOption').val(); //рассчитываем ряды и колонки по правилу большое на большое, меньшее на меньшее
+  cellContentsOption = $('#cellContentsOption').val();
+  W1 = $('#canvas-name-1').val();
+  H1 = $('#canvas-name-2').val();
+  W2 = $('#cell-name-1').val();
+  H2 = $('#cell-name-2').val();
+  message1 = $('#message1').val();
+  message2 = $('#message2').val(); //рассчитываем ряды и колонки по правилу большое на большое, меньшее на меньшее
   // отрисовка таблицы будет зависеть какой парраметр попадет в колонку а какой в ряд, можно добавить чекбокс для поворота таблицы
 
   var row, col, largeCanvasSize, lowerCanvasSize, largeCellSize, lowerCellSize;
@@ -2057,7 +2018,7 @@ function tableResult() {
 
     $('.pipTableGen__copy-btn').removeAttr("disabled"); //Генерация для планфикса диапазона таблиц
 
-    planfixformula = planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true);
+    planfixformula = planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
   }
 } // функция в которой хранится очистка данных перед построением таблицы
 
@@ -2072,16 +2033,16 @@ function dataСleaning() {
 } //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
 
 
-function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes) {
+function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes, W1, H1, W2, H2, message1, message2) {
   //W-ширина,H-высота
   //1-ячейка
   //2-холст
-  var planfixFormula1 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.W2}}>={{Задача.H2}});',
-      planfixFormula2 = 'если(И({{Задача.W1}}>={{Задача.H1}};{{Задача.H2}}>={{Задача.W2}});',
-      planfixFormula3 = 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.W2}}>={{Задача.H2}});',
-      planfixFormula4 = 'если(И({{Задача.H1}}>={{Задача.W1}};{{Задача.H2}}>={{Задача.W2}});',
-      planfixFormulaElse = '"Лист меньше бумаги1"',
-      planfixFormulaEnd = '"Конец всех исходов"))))',
+  var planfixFormula1 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
+      planfixFormula2 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
+      planfixFormula3 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
+      planfixFormula4 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
+      planfixFormulaElse = '"' + message1 + '"',
+      planfixFormulaEnd = '"' + message2 + '"))))',
       result = '';
 
   for (var i = 1; i <= row; i++) {
@@ -2092,19 +2053,19 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
       // если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
       // "Лист меньше бумаги1");
 
-      planfixFormula1 += 'если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + i + ');';
+      planfixFormula1 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
       planfixFormula1 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
       planfixFormula1 += ';'; //если(И(W1>=H1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
-      planfixFormula2 += 'если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + i + ');';
+      planfixFormula2 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
       planfixFormula2 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
       planfixFormula2 += ';'; //если(И(H1>=W1;W2>=H2);
       //если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
-      planfixFormula3 += 'если(И(ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.W1}});0)=' + i + ');';
+      planfixFormula3 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + i + ');';
       planfixFormula3 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
       planfixFormula3 += ';'; //если(И(H1>=W1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
@@ -2153,6 +2114,51 @@ function writeFile(name, value) {
 
 $('.pipTableGen__download-btn').on('click', function () {
   writeFile("123.txt", planfixformula);
+});
+jQuery(document).ready(function ($) {
+  var tabs = $('.tabs');
+  tabs.each(function () {
+    var tab = $(this),
+        tabItems = tab.find('ul.tabs__navigation'),
+        tabContentWrapper = tab.children('ul.tabs__content'),
+        tabNavigation = tab.find('nav');
+    tabItems.on('click', 'a', function (event) {
+      event.preventDefault();
+      var selectedItem = $(this);
+
+      if (!selectedItem.hasClass('selected')) {
+        var selectedTab = selectedItem.data('content'),
+            selectedContent = tabContentWrapper.find('li[data-content="' + selectedTab + '"]'),
+            selectedContentHeight = selectedContent.innerHeight();
+        tabItems.find('a.selected').removeClass('selected');
+        selectedItem.addClass('selected');
+        selectedContent.addClass('selected').siblings('li').removeClass('selected');
+      }
+    }); //hide the .tabs::after element when tabbed navigation has scrolled to the end (mobile version)
+
+    checkScrolling(tabNavigation);
+    tabNavigation.on('scroll', function () {
+      checkScrolling($(this));
+    });
+  });
+  $(window).on('resize', function () {
+    tabs.each(function () {
+      var tab = $(this);
+      checkScrolling(tab.find('nav'));
+      tab.find('.tabs__content').css('height', 'auto');
+    });
+  });
+
+  function checkScrolling(tabs) {
+    var totalTabWidth = parseInt(tabs.children('.tabs__navigation').width()),
+        tabsViewport = parseInt(tabs.width());
+
+    if (tabs.scrollLeft() >= totalTabWidth - tabsViewport) {
+      tabs.parent('.tabs').addClass('is-ended');
+    } else {
+      tabs.parent('.tabs').removeClass('is-ended');
+    }
+  }
 });
 "use strict";
 

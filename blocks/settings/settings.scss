@@ -11,16 +11,29 @@
 	display: flex;
 }
 
+
+.settings__flex-wrap {
+	padding-right: 25px;
+}
+
 .settings__block {
 	display: flex;
-	flex-direction: column;
-	padding: 15px;
 	margin: 10px;
+}
+
+.settings__block--column {
+	flex-direction: column;
 }
 
 .settings__title {
 	font-size: 18px;
 	margin-bottom: 15px;
+}
+
+.settings__block-wrap {
+	display: flex;
+	flex-direction: column;
+	margin: 0 25px;
 }
 
 .settings__block-error {
@@ -33,3 +46,11 @@
 	min-height: 1.5em;
 }
 
+.settings__input {
+	margin-bottom: 3px;
+}
+
+.settings__label {
+	margin-bottom: 3px;
+	margin-top: 10px;
+}

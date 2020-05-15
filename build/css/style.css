@@ -2221,7 +2221,26 @@ img.mfp-img {
   display: -ms-flexbox;
   display: flex; }
 
+.settings__flex-wrap {
+  padding-right: 25px; }
+
 .settings__block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px; }
+
+.settings__block--column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.settings__title {
+  font-size: 18px;
+  margin-bottom: 15px; }
+
+.settings__block-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2229,12 +2248,7 @@ img.mfp-img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 15px;
-  margin: 10px; }
-
-.settings__title {
-  font-size: 18px;
-  margin-bottom: 15px; }
+  margin: 0 25px; }
 
 .settings__block-error {
   font-weight: bold;
@@ -2244,6 +2258,13 @@ img.mfp-img {
   margin-bottom: 20px;
   line-height: 1.5;
   min-height: 1.5em; }
+
+.settings__input {
+  margin-bottom: 3px; }
+
+.settings__label {
+  margin-bottom: 3px;
+  margin-top: 10px; }
 
 @media (max-width: 1200px) {
   .slick-arrow {

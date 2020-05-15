@@ -23,50 +23,74 @@
 
 		<div class="settings__form">
 			<div class="settings__flex">
-				<div class="settings__wrap">
-					<p class="settings__title">Размеры Полотна</p>
-					<div class="settings__block">
-						<div class="settings__block-wrap">
-							<label for="canvas-size-1" class="settings__label">Размер 1</label>
-							<input type="number" id="canvas-size-1" class="settings__input" type="text">
-							<p id="errorCanH" class="settings__block-error"></p>
-						</div>
-						<div class="settings__block-wrap">
-							<label for="canvas-size-2" class="settings__label">Размер 2</label>
-							<input type="number" id="canvas-size-2" class="settings__input" type="text">
-							<p id="errorCanW" class="settings__block-error"></p>
+				<div class="settings__flex-wrap">
+					<div class="settings__wrap">
+						<p class="settings__title">Размеры Полотна</p>
+						<div class="settings__block">
+							<div class="settings__block-wrap">
+								<label for="canvas-name-1" class="settings__label">Переменная</label>
+								<input type="text" id="canvas-name-1" class="settings__input" value="A1">
+								<label for="canvas-size-1" class="settings__label">Размер 1</label>
+								<input type="number" id="canvas-size-1" class="settings__input">
+								<p id="errorCanH" class="settings__block-error"></p>
+							</div>
+							<div class="settings__block-wrap">
+								<label for="canvas-name-2" class="settings__label">Переменная</label>
+								<input type="text" id="canvas-name-2" class="settings__input" value="B1">
+								<label for="canvas-size-2" class="settings__label">Размер 2</label>
+								<input type="number" id="canvas-size-2" class="settings__input">
+								<p id="errorCanW" class="settings__block-error"></p>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="settings__wrap">
-					<p class="settings__title">Размеры Ячейки</p>
-					<div class="settings__block">
-						<div class="settings__block-wrap">
-							<label for="cell-size-1" class="settings__label">Размер 1</label>
-							<input type="number" id="cell-size-1" class="settings__input" type="text">
-							<p id="errorCellH" class="settings__block-error"></p>
-						</div>
-						<div class="settings__block-wrap">
-							<label for="cell-size-2" class="settings__label">Размер 2</label>
-							<input type="number" id="cell-size-2" class="settings__input" type="text">
-							<p id="errorCellW" class="settings__block-error"></p>
+					<div class="settings__wrap">
+						<p class="settings__title">Размеры Ячейки</p>
+						<div class="settings__block">
+							<div class="settings__block-wrap">
+								<label for="cell-size-1" class="settings__label">Переменная</label>
+								<input type="text" id="cell-name-1" class="settings__input" value="C1">
+								<label for="cell-size-1" class="settings__label">Размер 1</label>
+								<input type="number" id="cell-size-1" class="settings__input">
+								<p id="errorCellH" class="settings__block-error"></p>
+							</div>
+							<div class="settings__block-wrap">
+								<label for="cell-size-2" class="settings__label">Переменная</label>
+								<input type="text" id="cell-name-2" class="settings__input" value="D1">
+								<label for="cell-size-2" class="settings__label">Размер 2</label>
+								<input type="number" id="cell-size-2" class="settings__input">
+								<p id="errorCellW" class="settings__block-error"></p>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="settings__wrap">
 					<p class="settings__title"> Доп параметры</p>
-					<div class="settings__block">
-						<label for="cell-color" class="settings__label">Цвет ячейки</label>
-						<input id="cell-color" class="settings__inputs jscolor" value="fbfbfb">
-						<label for="border-color" class="settings__label">Цвет линий</label>
-						<input id="border-color" class="settings__inputs jscolor" value="afafaf">
-						<label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
-						<select id="cellContentsOption" class="settings__select">
-							<option value="numbering" selected>Нумерация</option>
-							<option value="empty">Пустые ячейки</option>
-						</select>
+					<div class="settings__block settings__block--column">
+						<div class="settings__block-wrap">
+							<label for="cell-color" class="settings__label">Цвет ячейки</label>
+							<input id="cell-color" class="settings__input jscolor" value="fbfbfb">
+						</div>
+						<div class="settings__block-wrap">
+							<label for="border-color" class="settings__label">Цвет линий</label>
+							<input id="border-color" class="settings__input jscolor" value="afafaf">
+						</div>
+						<div class="settings__block-wrap">
+							<label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
+							<select id="cellContentsOption" class="settings__select">
+								<option value="numbering" selected>Нумерация</option>
+								<option value="empty">Пустые ячейки</option>
+							</select>
+						</div>
+						<div class="settings__block-wrap">
+							<label for="message1" class="settings__label">Сообщение если ячейка больше листа</label>
+							<input type="text" id="message1" class="settings__input" value="Лист меньше бумаги">
+						</div>
+						<div class="settings__block-wrap">
+							<label for="message2" class="settings__label">Сообщение </label>
+							<input type="text" id="message2" class="settings__input " value="Конец всех исходов" >
+						</div>
 					</div>
 				</div>
 			</div>
