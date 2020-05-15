@@ -29,16 +29,18 @@
 						<div class="settings__block">
 							<div class="settings__block-wrap">
 								<label for="canvas-name-1" class="settings__label">Переменная</label>
-								<input type="text" id="canvas-name-1" class="settings__input" value="A1">
-								<label for="canvas-size-1" class="settings__label">Размер 1</label>
-								<input type="number" id="canvas-size-1" class="settings__input">
+								<input type="text" id="canvas-name-1" class="settings__input" value="{{Задача.A1}}" tabindex="1">
+								<span class="settings__example">Пример: {{Задача.A1}}</span>
+								<label for="canvas-size-1" class="settings__label">Ширина</label>
+								<input type="number" id="canvas-size-1" class="settings__input" tabindex="3">
 								<p id="errorCanH" class="settings__block-error"></p>
 							</div>
 							<div class="settings__block-wrap">
 								<label for="canvas-name-2" class="settings__label">Переменная</label>
-								<input type="text" id="canvas-name-2" class="settings__input" value="B1">
-								<label for="canvas-size-2" class="settings__label">Размер 2</label>
-								<input type="number" id="canvas-size-2" class="settings__input">
+								<input type="text" id="canvas-name-2" class="settings__input" value="{{Задача.B1}}" tabindex="2">
+								<span class="settings__example">Пример: {{Задача.B1}}</span>
+								<label for="canvas-size-2" class="settings__label">Высота</label>
+								<input type="number" id="canvas-size-2" class="settings__input" tabindex="4">
 								<p id="errorCanW" class="settings__block-error"></p>
 							</div>
 						</div>
@@ -49,16 +51,18 @@
 						<div class="settings__block">
 							<div class="settings__block-wrap">
 								<label for="cell-size-1" class="settings__label">Переменная</label>
-								<input type="text" id="cell-name-1" class="settings__input" value="C1">
+								<input type="text" id="cell-name-1" class="settings__input" value="{{Задача.C1}}" tabindex="5">
+								<span class="settings__example">Пример: {{Задача.C1}}</span>
 								<label for="cell-size-1" class="settings__label">Размер 1</label>
-								<input type="number" id="cell-size-1" class="settings__input">
+								<input type="number" id="cell-size-1" class="settings__input" tabindex="7">
 								<p id="errorCellH" class="settings__block-error"></p>
 							</div>
 							<div class="settings__block-wrap">
 								<label for="cell-size-2" class="settings__label">Переменная</label>
-								<input type="text" id="cell-name-2" class="settings__input" value="D1">
+								<input type="text" id="cell-name-2" class="settings__input" value="{{Задача.D1}}" tabindex="6">
+								<span class="settings__example">Пример: {{Задача.D1}}</span>
 								<label for="cell-size-2" class="settings__label">Размер 2</label>
-								<input type="number" id="cell-size-2" class="settings__input">
+								<input type="number" id="cell-size-2" class="settings__input" tabindex="8">
 								<p id="errorCellW" class="settings__block-error"></p>
 							</div>
 						</div>
@@ -88,8 +92,8 @@
 							<input type="text" id="message1" class="settings__input" value="Лист меньше бумаги">
 						</div>
 						<div class="settings__block-wrap">
-							<label for="message2" class="settings__label">Сообщение </label>
-							<input type="text" id="message2" class="settings__input " value="Конец всех исходов" >
+							<label for="message2" class="settings__label">Сообщение если нет совпадений</label>
+							<input type="text" id="message2" class="settings__input " value="Конец всех исходов">
 						</div>
 					</div>
 				</div>
@@ -97,7 +101,7 @@
 		</div>
 
 		<div class="test">
-			<button class="trigger">Js Сгенерировать</button>
+			<button class="trigger">Сгенерировать</button>
 			<button class="pipTableGen__copy-btn" disabled>Скопировать</button>
 			<div class="settings__error"></div>
 			<div class="test__build"></div>
@@ -121,10 +125,7 @@
 
 
 <script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/jquery.lazy.min.js"></script>
 <script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
 <script src="js/jscolor.js"></script>
 <script src="js/script.min.js"></script>
 </body>

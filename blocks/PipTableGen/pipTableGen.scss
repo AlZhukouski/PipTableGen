@@ -35,3 +35,16 @@
 .pipTableGen__preloader--active {
 	display: flex;
 }
+
+.pipTableGen__build-wrap {
+	position: relative;
+}
+
+.pipTableGen__build-wrap table {
+
+	&:before, &:after {
+		content: "123";
+		position: absolute;
+	}
+}
+

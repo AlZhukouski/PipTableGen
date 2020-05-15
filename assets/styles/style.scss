@@ -1,7 +1,6 @@
 // assets and script style addons
-@import "libs/jquery.fancybox.scss";
-@import "libs/magnific-popup.scss";
-@import "libs/slick.scss";
+@import "libs/nice-select.scss";
+
 
 // global styles
 
@@ -12,10 +11,7 @@
 @import "svg_sprite.scss";
 
 // BEM blocks
-@import "../../blocks/accordion/accordion.scss";
-@import "../../blocks/form/form.scss";
-@import "../../blocks/modal/modal.scss";
-@import "../../blocks/tabs/tabs.scss";
+
 
 @import "../../blocks/PipTableGen/pipTableGen";
 @import "../../blocks/settings/settings.scss";

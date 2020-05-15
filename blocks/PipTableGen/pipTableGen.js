@@ -199,13 +199,14 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
 	//1-ячейка
 	//2-холст
 
-	let planfixFormula1 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
-		planfixFormula2 = 'если(И({{Задача.' + W1 + '}}>={{Задача.' + H1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
-		planfixFormula3 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + W2 + '}}>={{Задача.' + H2 + '}});',
-		planfixFormula4 = 'если(И({{Задача.' + H1 + '}}>={{Задача.' + W1 + '}};{{Задача.' + H2 + '}}>={{Задача.' + W2 + '}});',
+	let planfixFormula1 = 'если(И(' + W1 + '>=' + H1 + ';' + W2 + '>=' + H2 + ');',
+		planfixFormula2 = 'если(И(' + W1 + '>=' + H1 + ';' + H2 + '>=' + W2 + ');',
+		planfixFormula3 = 'если(И(' + H1 + '>=' + W1 + ';' + W2 + '>=' + H2 + ');',
+		planfixFormula4 = 'если(И(' + H1 + '>=' + W1 + ';' + H2 + '>=' + W2 + ');',
 		planfixFormulaElse = '"' + message1 + '"',
 		planfixFormulaEnd = '"' + message2 + '"))))',
-		result = '';
+		result = '',
+		table = '';
 
 
 	for (let i = 1; i <= row; i++) {
@@ -213,33 +214,36 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
 			//сформируем количество закрывающихся скобок
 			planfixFormulaElse += ')';
 
+			//сохраним сюда вычеслиние таблицы
+			table = tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+
 			// Формула из планфикса
 			// если(И(W1>=H1;W2>=H2);
 			// если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
 			// "Лист меньше бумаги1");
-			planfixFormula1 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
-			planfixFormula1 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula1 += 'если(И(ОКРУГЛВНИЗ((' + W2 + '/' + W1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + H1 + ');0)=' + i + ');';
+			planfixFormula1 += table;
 			planfixFormula1 += ';';
 
 			//если(И(W1>=H1;H2>=W2);
 			//если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula2 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + i + ');';
-			planfixFormula2 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula2 += 'если(И(ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W2 + '/' + H1 + ');0)=' + i + ');';
+			planfixFormula2 += table;
 			planfixFormula2 += ';';
 
 			//если(И(H1>=W1;W2>=H2);
 			//если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula3 += 'если(И(ОКРУГЛВНИЗ(({{Задача.' + W2 + '}}/{{Задача.' + H1 + '}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.' + H2 + '}}/{{Задача.' + W1 + '}});0)=' + i + ');';
-			planfixFormula3 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula3 += 'если(И(ОКРУГЛВНИЗ((' + W2 + '/' + H1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + i + ');';
+			planfixFormula3 += table;
 			planfixFormula3 += ';';
 
 			//если(И(H1>=W1;H2>=W2);
 			//если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
 			//"Лист меньше бумаги1");
-			planfixFormula4 += 'если(И(ОКРУГЛВНИЗ(({{Задача.H2}}/{{Задача.H1}});0)=' + y + ';ОКРУГЛВНИЗ(({{Задача.W2}}/{{Задача.W1}});0)=' + i + ');';
-			planfixFormula4 += tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes);
+			planfixFormula4 += 'если(И(ОКРУГЛВНИЗ((' + H2 + '/' + H1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W2 + '/' + W1 + ');0)=' + i + ');';
+			planfixFormula4 += table;
 			planfixFormula4 += ';';
 		}
 	}
