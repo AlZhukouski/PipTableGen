@@ -38,11 +38,11 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 
   content += tableStart;
 
-  for (var i = 0; i < row; i++) {
+  for (var i = 0; i < column; i++) {
     // выведет 0, затем 1, затем 2
     content += tableRowStart;
 
-    for (var y = 0; y < column; y++) {
+    for (var y = 0; y < row; y++) {
       cellContents++;
       content += tableDataStart; //если стоит опция нумерация ячеек то добавим ее в ячейки
 
@@ -129,57 +129,50 @@ function tableResult() {
   message2 = $('#message2').val(); //рассчитываем ряды и колонки по правилу большое на большое, меньшее на меньшее
   // отрисовка таблицы будет зависеть какой парраметр попадет в колонку а какой в ряд, можно добавить чекбокс для поворота таблицы
 
-  var row, col, largeCanvasSize, lowerCanvasSize, largeCellSize, lowerCellSize;
+  var row, col, cellWidth, cellHeight;
 
   if (+canvasSize1 > +canvasSize2) {
     if (+cellsize1 > +cellsize2) {
       row = Math.floor(+canvasSize1 / +cellsize1);
       col = Math.floor(+canvasSize2 / +cellsize2);
-      largeCanvasSize = +canvasSize1;
-      lowerCanvasSize = +canvasSize2;
-      largeCellSize = +cellsize1;
-      lowerCellSize = +cellsize2;
+      cellWidth = +cellsize1;
+      cellHeight = +cellsize2;
+      console.log('1');
     } else {
       row = Math.floor(+canvasSize1 / +cellsize2);
       col = Math.floor(+canvasSize2 / +cellsize1);
-      largeCanvasSize = +canvasSize1;
-      lowerCanvasSize = +canvasSize2;
-      largeCellSize = +cellsize2;
-      lowerCellSize = +cellsize1;
+      cellWidth = +cellsize2;
+      cellHeight = +cellsize1;
     }
   } else {
     if (+cellsize1 > +cellsize2) {
-      row = Math.floor(+canvasSize2 / +cellsize1);
-      col = Math.floor(+canvasSize1 / +cellsize2);
-      largeCanvasSize = +canvasSize2;
-      lowerCanvasSize = +canvasSize1;
-      largeCellSize = +cellsize1;
-      lowerCellSize = +cellsize2;
+      row = Math.floor(+canvasSize1 / +cellsize2);
+      col = Math.floor(+canvasSize2 / +cellsize1);
+      cellWidth = +cellsize2;
+      cellHeight = +cellsize1;
     } else {
-      row = Math.floor(+canvasSize2 / +cellsize1);
-      col = Math.floor(+canvasSize1 / +cellsize2);
-      largeCanvasSize = +canvasSize2;
-      lowerCanvasSize = +canvasSize1;
-      largeCellSize = +cellsize2;
-      lowerCellSize = +cellsize1;
+      row = Math.floor(+canvasSize1 / +cellsize1);
+      col = Math.floor(+canvasSize2 / +cellsize2);
+      cellWidth = +cellsize1;
+      cellHeight = +cellsize2;
     }
   } //проверим корректность значений и если все верно запустим генерацию таблицы
 
 
-  if (checkingValues(largeCanvasSize, lowerCanvasSize, largeCellSize, lowerCellSize)) {
+  if (checkingValues(canvasSize1, canvasSize2, cellWidth, cellHeight)) {
     //добавим данные о таблице
     $('.pipTableGen__col').empty().append(col);
     $('.pipTableGen__row').empty().append(row);
     $('.pipTableGen__amount').empty().append(row * col); //Сгенерируем таблицу по парраметрам
 
-    tableCode = tableGenerator(row, col, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, false);
+    tableCode = tableGenerator(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, false);
     $('.pipTableGen__build-wrap').empty().append(tableCode); //Контейнеру в который закинем таблицу определим минимальную ширину равную ширине полотна что бы ячейки не сжимались
 
-    $('.pipTableGen__build-wrap').css('min-width', col * +largeCellSize + 'px').css('min-height', row * +lowerCellSize + 'px'); //Активируем кнопку Скопировать
+    $('.pipTableGen__build-wrap').css('min-width', row * +cellWidth + 'px').css('min-height', col * +cellHeight + 'px'); //Активируем кнопку Скопировать
 
     $('.pipTableGen__copy-btn').removeAttr("disabled"); //Генерация для планфикса диапазона таблиц
 
-    planfixformula = planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
+    planfixformula = planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
   }
 } // функция в которой хранится очистка данных перед построением таблицы
 
@@ -191,17 +184,18 @@ function dataСleaning() {
   $('.pipTableGen__copy-btn').attr("disabled", true); //очистим значение переменной
 
   tableCode = '';
+  planfixformula = '';
 } //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
 
 
-function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSize, lowerCanvasSize, bgColor, borderColor, cellContentsOption, quotes, W1, H1, W2, H2, message1, message2) {
+function planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes, W1, H1, W2, H2, message1, message2) {
   //W-ширина,H-высота
   //1-ячейка
   //2-холст
-  var planfixFormula1 = 'если(И(' + W1 + '>=' + H1 + ';' + W2 + '>=' + H2 + ');',
-      planfixFormula2 = 'если(И(' + W1 + '>=' + H1 + ';' + H2 + '>=' + W2 + ');',
-      planfixFormula3 = 'если(И(' + H1 + '>=' + W1 + ';' + W2 + '>=' + H2 + ');',
-      planfixFormula4 = 'если(И(' + H1 + '>=' + W1 + ';' + H2 + '>=' + W2 + ');',
+  var planfixFormula1 = 'если(И(' + W2 + '>=' + H2 + ';' + W1 + '>=' + H1 + ');',
+      planfixFormula2 = 'если(И(' + W2 + '>=' + H2 + ';' + H1 + '>=' + W1 + ');',
+      planfixFormula3 = 'если(И(' + H2 + '>=' + W2 + ';' + W1 + '>=' + H1 + ');',
+      planfixFormula4 = 'если(И(' + H2 + '>=' + W2 + ';' + H1 + '>=' + W1 + ');',
       planfixFormulaElse = '"' + message1 + '"',
       planfixFormulaEnd = '"' + message2 + '"))))',
       result = '',
@@ -212,30 +206,30 @@ function planfixTablesGen(row, col, largeCellSize, lowerCellSize, largeCanvasSiz
       //сформируем количество закрывающихся скобок
       planfixFormulaElse += ')'; //сохраним сюда вычеслиние таблицы
 
-      table = tableGenerator(i, y, bgColor, borderColor, largeCellSize, lowerCellSize, cellContentsOption, quotes); // Формула из планфикса
+      table = tableGenerator(i, y, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes); // Формула из планфикса
       // если(И(W1>=H1;W2>=H2);
       // если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
       // "Лист меньше бумаги1");
 
-      planfixFormula1 += 'если(И(ОКРУГЛВНИЗ((' + W2 + '/' + W1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + H1 + ');0)=' + i + ');';
+      planfixFormula1 += 'если(И(ОКРУГЛВНИЗ((' + W1 + '/' + W2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H1 + '/' + H2 + ');0)=' + i + ');';
       planfixFormula1 += table;
       planfixFormula1 += ';'; //если(И(W1>=H1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
-      planfixFormula2 += 'если(И(ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W2 + '/' + H1 + ');0)=' + i + ');';
+      planfixFormula2 += 'если(И(ОКРУГЛВНИЗ((' + H1 + '/' + W2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W1 + '/' + H2 + ');0)=' + i + ');';
       planfixFormula2 += table;
       planfixFormula2 += ';'; //если(И(H1>=W1;W2>=H2);
       //если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
-      planfixFormula3 += 'если(И(ОКРУГЛВНИЗ((' + W2 + '/' + H1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + i + ');';
+      planfixFormula3 += 'если(И(ОКРУГЛВНИЗ((' + W1 + '/' + H2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + i + ');';
       planfixFormula3 += table;
       planfixFormula3 += ';'; //если(И(H1>=W1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
-      planfixFormula4 += 'если(И(ОКРУГЛВНИЗ((' + H2 + '/' + H1 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W2 + '/' + W1 + ');0)=' + i + ');';
+      planfixFormula4 += 'если(И(ОКРУГЛВНИЗ((' + H1 + '/' + H2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W1 + '/' + W2 + ');0)=' + i + ');';
       planfixFormula4 += table;
       planfixFormula4 += ';';
     }

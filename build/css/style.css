@@ -261,10 +261,6 @@
 .pipTableGen__build-wrap {
   position: relative; }
 
-.pipTableGen__build-wrap table:before, .pipTableGen__build-wrap table:after {
-  content: "123";
-  position: absolute; }
-
 .settings {
   padding-top: 55px; }
 
