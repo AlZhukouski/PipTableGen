@@ -13,10 +13,6 @@
 <body class="page">
 
 <div class="pipTableGen">
-	<div style="display: none" class="pipTableGen__preloader">
-		<img src="img/preloader.gif" alt="">
-	</div>
-
 	<h2 class="pipTableGen__title">Генератор таблиц для Планфикса</h2>
 
 	<div class="settings pipTableGen__settings">
@@ -33,7 +29,7 @@
 								<span class="settings__example">Пример: {{Задача.A1}}</span>
 								<label for="canvas-size-1" class="settings__label">Ширина</label>
 								<input type="number" id="canvas-size-1" class="settings__input" tabindex="3">
-								<p id="errorCanH" class="settings__block-error"></p>
+								<p id="errorCanW" class="settings__block-error"></p>
 							</div>
 							<div class="settings__block-wrap">
 								<label for="canvas-name-2" class="settings__label">Переменная</label>
@@ -41,7 +37,7 @@
 								<span class="settings__example">Пример: {{Задача.B1}}</span>
 								<label for="canvas-size-2" class="settings__label">Высота</label>
 								<input type="number" id="canvas-size-2" class="settings__input" tabindex="4">
-								<p id="errorCanW" class="settings__block-error"></p>
+								<p id="errorCanH" class="settings__block-error"></p>
 							</div>
 						</div>
 					</div>
@@ -101,8 +97,8 @@
 		</div>
 
 		<div class="test">
-			<button class="trigger">Сгенерировать</button>
-			<button class="pipTableGen__copy-btn" disabled>Скопировать</button>
+			<button class="pipTableGen__gen-btn pipTableGen__btn trigger">Сгенерировать</button>
+			<button class="pipTableGen__copy-btn pipTableGen__btn" disabled>Скопировать</button>
 			<div class="settings__error"></div>
 			<div class="test__build"></div>
 		</div>

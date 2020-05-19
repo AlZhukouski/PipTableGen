@@ -38,11 +38,11 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 
   content += tableStart;
 
-  for (var i = 0; i < column; i++) {
+  for (var i = 0; i < row; i++) {
     // выведет 0, затем 1, затем 2
     content += tableRowStart;
 
-    for (var y = 0; y < row; y++) {
+    for (var y = 0; y < column; y++) {
       cellContents++;
       content += tableDataStart; //если стоит опция нумерация ячеек то добавим ее в ячейки
 
@@ -133,31 +133,32 @@ function tableResult() {
 
   if (+canvasSize1 > +canvasSize2) {
     if (+cellsize1 > +cellsize2) {
-      row = Math.floor(+canvasSize1 / +cellsize1);
-      col = Math.floor(+canvasSize2 / +cellsize2);
+      col = Math.floor(+canvasSize1 / +cellsize1);
+      row = Math.floor(+canvasSize2 / +cellsize2);
       cellWidth = +cellsize1;
       cellHeight = +cellsize2;
       console.log('1');
     } else {
-      row = Math.floor(+canvasSize1 / +cellsize2);
-      col = Math.floor(+canvasSize2 / +cellsize1);
+      col = Math.floor(+canvasSize1 / +cellsize2);
+      row = Math.floor(+canvasSize2 / +cellsize1);
       cellWidth = +cellsize2;
       cellHeight = +cellsize1;
     }
   } else {
     if (+cellsize1 > +cellsize2) {
-      row = Math.floor(+canvasSize1 / +cellsize2);
-      col = Math.floor(+canvasSize2 / +cellsize1);
+      col = Math.floor(+canvasSize1 / +cellsize2);
+      row = Math.floor(+canvasSize2 / +cellsize1);
       cellWidth = +cellsize2;
       cellHeight = +cellsize1;
     } else {
-      row = Math.floor(+canvasSize1 / +cellsize1);
-      col = Math.floor(+canvasSize2 / +cellsize2);
+      col = Math.floor(+canvasSize1 / +cellsize1);
+      row = Math.floor(+canvasSize2 / +cellsize2);
       cellWidth = +cellsize1;
       cellHeight = +cellsize2;
     }
-  } //проверим корректность значений и если все верно запустим генерацию таблицы
+  }
 
+  console.log(' row=' + row + ' col=' + col); //проверим корректность значений и если все верно запустим генерацию таблицы
 
   if (checkingValues(canvasSize1, canvasSize2, cellWidth, cellHeight)) {
     //добавим данные о таблице
@@ -199,38 +200,40 @@ function planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight,
       planfixFormulaElse = '"' + message1 + '"',
       planfixFormulaEnd = '"' + message2 + '"))))',
       result = '',
-      table = '';
+      table1 = '',
+      table2 = '';
 
   for (var i = 1; i <= row; i++) {
     for (var y = 1; y <= col; y++) {
       //сформируем количество закрывающихся скобок
       planfixFormulaElse += ')'; //сохраним сюда вычеслиние таблицы
 
-      table = tableGenerator(i, y, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes); // Формула из планфикса
+      table1 = tableGenerator(i, y, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes);
+      table2 = tableGenerator(y, i, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, quotes); // Формула из планфикса
       // если(И(W1>=H1;W2>=H2);
       // если(И(ОКРУГЛВНИЗ((W2/W1);0)=1;ОКРУГЛВНИЗ((H2/H1);0)=1);"ТАБЛИЦА1х1";
       // "Лист меньше бумаги1");
 
       planfixFormula1 += 'если(И(ОКРУГЛВНИЗ((' + W1 + '/' + W2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H1 + '/' + H2 + ');0)=' + i + ');';
-      planfixFormula1 += table;
+      planfixFormula1 += table1;
       planfixFormula1 += ';'; //если(И(W1>=H1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/W1);0)=1;ОКРУГЛВНИЗ((W2/H1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
       planfixFormula2 += 'если(И(ОКРУГЛВНИЗ((' + H1 + '/' + W2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W1 + '/' + H2 + ');0)=' + i + ');';
-      planfixFormula2 += table;
+      planfixFormula2 += table2;
       planfixFormula2 += ';'; //если(И(H1>=W1;W2>=H2);
       //если(И(ОКРУГЛВНИЗ((W2/H1);0)=1;ОКРУГЛВНИЗ((H2/W1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
       planfixFormula3 += 'если(И(ОКРУГЛВНИЗ((' + W1 + '/' + H2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + H2 + '/' + W1 + ');0)=' + i + ');';
-      planfixFormula3 += table;
+      planfixFormula3 += table1;
       planfixFormula3 += ';'; //если(И(H1>=W1;H2>=W2);
       //если(И(ОКРУГЛВНИЗ((H2/H1);0)=1;ОКРУГЛВНИЗ((W2/W1);0)=1);"ТАБЛИЦА1х1";
       //"Лист меньше бумаги1");
 
       planfixFormula4 += 'если(И(ОКРУГЛВНИЗ((' + H1 + '/' + H2 + ');0)=' + y + ';ОКРУГЛВНИЗ((' + W1 + '/' + W2 + ');0)=' + i + ');';
-      planfixFormula4 += table;
+      planfixFormula4 += table2;
       planfixFormula4 += ';';
     }
   }
@@ -241,7 +244,7 @@ function planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight,
 } //по триггеру генерируем таблицу
 
 
-$('.trigger').on('click', tableResult); //копируем в буфер обмена
+$('.pipTableGen__gen-btn').on('click', tableResult); //копируем в буфер обмена
 
 $('.pipTableGen__copy-btn').on('click', function () {
   navigator.clipboard.writeText(planfixformula).then(function () {

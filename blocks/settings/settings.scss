@@ -48,6 +48,16 @@
 
 .settings__input {
 	margin-bottom: 3px;
+	border-radius: 5px;
+	padding: 5px 10px;
+	border: unset;
+	border-bottom: 2px solid #82c03b;
+	background-color: #f6f6f6;
+}
+
+.settings__input:focus {
+	outline: transparent;
+	background-color: #e4e4e4;
 }
 
 .settings__label {
