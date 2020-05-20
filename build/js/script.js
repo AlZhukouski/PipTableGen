@@ -137,7 +137,6 @@ function tableResult() {
       row = Math.floor(+canvasSize2 / +cellsize2);
       cellWidth = +cellsize1;
       cellHeight = +cellsize2;
-      console.log('1');
     } else {
       col = Math.floor(+canvasSize1 / +cellsize2);
       row = Math.floor(+canvasSize2 / +cellsize1);
@@ -156,11 +155,10 @@ function tableResult() {
       cellWidth = +cellsize1;
       cellHeight = +cellsize2;
     }
-  }
+  } //проверим корректность значений и если все верно запустим генерацию таблицы
 
-  console.log(' row=' + row + ' col=' + col); //проверим корректность значений и если все верно запустим генерацию таблицы
 
-  if (checkingValues(canvasSize1, canvasSize2, cellWidth, cellHeight)) {
+  if (checkingValues(canvasSize1, canvasSize2, cellsize1, cellsize2)) {
     //добавим данные о таблице
     $('.pipTableGen__col').empty().append(col);
     $('.pipTableGen__row').empty().append(row);
