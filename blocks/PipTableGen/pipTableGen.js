@@ -285,10 +285,15 @@ $('.pipTableGen__download-btn').on('click', function () {
 });
 
 
-
 // тут активируем урезанную версию скрипта для тети в планфиксе
 
 $('.pipTableGen__gen-btn-1').on('click', tableResult1);
+
+$("body").keypress(function (e) {
+	if (e.which == 13) {
+		 tableResult1 ();
+	}
+});
 
 //функция построение нужной таблицы с проверками
 function tableResult1() {
@@ -322,13 +327,11 @@ function tableResult1() {
 			row = Math.floor(+canvasSize2 / +cellsize2);
 			cellWidth = +cellsize1;
 			cellHeight = +cellsize2;
-			console.log('1 ' + 'col=' + col +'  cellwidth= ' + cellWidth);
 		} else {
 			col = Math.floor(+canvasSize1 / +cellsize2);
 			row = Math.floor(+canvasSize2 / +cellsize1);
 			cellWidth = +cellsize2;
 			cellHeight = +cellsize1;
-			console.log('2 ' + 'col=' + col +'  cellwidth= ' + cellWidth);
 		}
 	} else {
 		if (+cellsize1 >= +cellsize2) {
@@ -336,13 +339,11 @@ function tableResult1() {
 			row = Math.floor(+canvasSize2 / +cellsize1);
 			cellWidth = +cellsize2;
 			cellHeight = +cellsize1;
-			console.log('3 ' + 'col=' + col +'  cellwidth= ' + cellWidth);
 		} else {
 			col = Math.floor(+canvasSize1 / +cellsize1);
 			row = Math.floor(+canvasSize2 / +cellsize2);
 			cellWidth = +cellsize1;
 			cellHeight = +cellsize2;
-			console.log('4 ' + 'col=' + col +'  cellwidth= ' + cellWidth);
 		}
 	}
 
