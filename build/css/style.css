@@ -297,7 +297,8 @@
     margin: 0; }
   .planfix .pipTableGen__build {
     max-height: 600px;
-    margin-bottom: unset; }
+    margin-bottom: unset;
+    margin-top: 10px; }
   .planfix .settings__block-wrap {
     margin: 0 3px; }
   .planfix .test {
@@ -366,7 +367,7 @@
   margin-bottom: 3px;
   border-radius: 5px;
   padding: 5px 10px;
-  border: unset;
+  border: 1px solid #82c03b;
   border-bottom: 2px solid #82c03b;
   background-color: #f6f6f6; }
 
