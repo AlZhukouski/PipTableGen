@@ -7,6 +7,10 @@
 	padding-top: 55px;
 }
 
+.settings--pt-0 {
+	padding-top: 0;
+}
+
 .settings__flex {
 	display: flex;
 }
@@ -66,6 +70,22 @@
 }
 
 .settings__select {
+	&.nice-select {
+		margin-bottom: 3px;
+		border-radius: 5px;
+		padding: 5px 10px;
+		border: unset;
+		border-bottom: 2px solid #82c03b;
+		background-color: #f6f6f6;
+		height: 29px;
+		line-height: 19px;
+	}
+
+	.list {
+		width: 100%;
+		border-radius: 5px;
+		border: 1px solid #82c03b;
+	}
 
 }
 

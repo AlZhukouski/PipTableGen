@@ -8,6 +8,10 @@
 	padding-top: 45px;
 }
 
+.pipTableGen-pt-0 {
+	padding-top: 0;
+}
+
 .pipTableGen__title {
 	text-align: center;
 }
@@ -44,5 +48,14 @@
 	padding: 5px 10px;
 	border-radius: 5px;
 	cursor: pointer;
+	font-weight: 600;
+	color: #fff;
+	background: #86c242;
+	border-color: #82c03b;
+	transition: 0.15s;
+
+	&:hover {
+		box-shadow: 0 0 14px rgb(173, 222, 117);
+	}
 }
 

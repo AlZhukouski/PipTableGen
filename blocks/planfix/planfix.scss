@@ -1,0 +1,32 @@
+// В этом файле должны быть стили для БЭМ-блока planfix, его элементов,
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
+
+.planfix {
+
+	.settings--hidden {
+		display: none !important;
+	}
+
+	.hidden {
+		display: none !important;
+	}
+
+	.settings__flex-wrap--planfix {
+		padding-right: 0;
+	}
+
+	.settings__block-error {
+		margin-bottom: 0;
+	}
+
+	.settings__title {
+		margin: 5px 0;
+	}
+
+	.settings__label {
+		margin-top: 5px;
+	}
+
+}

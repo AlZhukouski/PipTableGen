@@ -227,6 +227,9 @@
           box-sizing: border-box;
   padding-top: 45px; }
 
+.pipTableGen-pt-0 {
+  padding-top: 0; }
+
 .pipTableGen__title {
   text-align: center; }
 
@@ -264,10 +267,41 @@
 .pipTableGen__btn {
   padding: 5px 10px;
   border-radius: 5px;
-  cursor: pointer; }
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  background: #86c242;
+  border-color: #82c03b;
+  -webkit-transition: 0.15s;
+  -o-transition: 0.15s;
+  transition: 0.15s; }
+  .pipTableGen__btn:hover {
+    -webkit-box-shadow: 0 0 14px #adde75;
+            box-shadow: 0 0 14px #adde75; }
+
+.planfix .settings--hidden {
+  display: none !important; }
+
+.planfix .hidden {
+  display: none !important; }
+
+.planfix .settings__flex-wrap--planfix {
+  padding-right: 0; }
+
+.planfix .settings__block-error {
+  margin-bottom: 0; }
+
+.planfix .settings__title {
+  margin: 5px 0; }
+
+.planfix .settings__label {
+  margin-top: 5px; }
 
 .settings {
   padding-top: 55px; }
+
+.settings--pt-0 {
+  padding-top: 0; }
 
 .settings__flex {
   display: -webkit-box;
@@ -327,6 +361,21 @@
 .settings__label {
   margin-bottom: 3px;
   margin-top: 10px; }
+
+.settings__select.nice-select {
+  margin-bottom: 3px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: unset;
+  border-bottom: 2px solid #82c03b;
+  background-color: #f6f6f6;
+  height: 29px;
+  line-height: 19px; }
+
+.settings__select .list {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #82c03b; }
 
 .settings__example {
   font-size: 13px;
