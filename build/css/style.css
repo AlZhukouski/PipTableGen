@@ -285,19 +285,33 @@
     display: none !important; }
   .planfix .hidden {
     display: none !important; }
-  .planfix .settings__flex {
-    padding-top: 5px; }
   .planfix .settings__flex-wrap--planfix {
     padding-right: 0; }
+  .planfix .settings__block {
+    margin: 0; }
   .planfix .settings__block-error {
     margin-bottom: 0; }
   .planfix .settings__title {
-    margin: 5px 0; }
+    margin: 0; }
   .planfix .settings__label {
     margin-top: 5px; }
   .planfix .pipTableGen__build {
     max-height: 600px;
     margin-bottom: unset; }
+  .planfix .settings__block-wrap {
+    margin: 0 8px; }
+  .planfix .test {
+    display: inline-block; }
+  .planfix .pipTableGen__info {
+    margin-top: 10px;
+    margin-left: 25px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex; }
+    .planfix .pipTableGen__info .pipTableGen__size {
+      margin-right: 10px; }
+    .planfix .pipTableGen__info p {
+      margin: 3px 0; }
 
 .settings {
   padding-top: 55px; }

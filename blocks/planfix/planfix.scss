@@ -14,12 +14,12 @@
 		display: none !important;
 	}
 
-	.settings__flex {
-		padding-top: 5px;
-	}
-
 	.settings__flex-wrap--planfix {
 		padding-right: 0;
+	}
+
+	.settings__block {
+		margin: 0;
 	}
 
 	.settings__block-error {
@@ -27,7 +27,7 @@
 	}
 
 	.settings__title {
-		margin: 5px 0;
+		margin: 0;
 	}
 
 	.settings__label {
@@ -38,5 +38,27 @@
 		max-height: 600px;
 		margin-bottom: unset;
 	}
+
+	.settings__block-wrap {
+		margin: 0 8px;
+	}
+
+	.test {
+		display: inline-block;
+	}
+
+	.pipTableGen__info {
+		margin-top: 10px;
+		margin-left: 25px;
+		display: inline-flex;
+
+		.pipTableGen__size {
+			margin-right: 10px;
+		}
+		p {
+			margin: 3px 0;
+		}
+	}
+
 
 }
