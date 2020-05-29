@@ -290,16 +290,16 @@
   .planfix .settings__block {
     margin: 0; }
   .planfix .settings__block-error {
-    margin-bottom: 0; }
+    margin: 0; }
   .planfix .settings__title {
     margin: 0; }
   .planfix .settings__label {
-    margin-top: 5px; }
+    margin: 0; }
   .planfix .pipTableGen__build {
     max-height: 600px;
     margin-bottom: unset; }
   .planfix .settings__block-wrap {
-    margin: 0 8px; }
+    margin: 0 3px; }
   .planfix .test {
     display: inline-block; }
   .planfix .pipTableGen__info {
