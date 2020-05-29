@@ -2,125 +2,125 @@
 <html lang="ru">
 
 <head>
-	<title>Название</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Page description">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<link rel="stylesheet" href="css/style.min.css">
+  <title>Название</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Page description">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body class="page planfix">
 
-<div class="pipTableGen pipTableGen-pt-0">
+  <div class="pipTableGen pipTableGen-pt-0">
 
-	<div class="settings pipTableGen__settings settings--pt-0">
-		<div class="settings__form">
-			<div class="settings__flex">
-				<div class="settings__flex-wrap settings__flex-wrap--planfix">
-					<div class="settings__wrap">
-						<p class="settings__title">Размеры Полотна</p>
-						<div class="settings__block">
-							<div class="settings__block-wrap">
-								<label for="canvas-name-1" class="settings__label settings--hidden">Переменная</label>
-								<input type="text" id="canvas-name-1" class="settings__input settings--hidden" value="{{Задача.A1}}" tabindex="1">
-								<span class="settings__example settings--hidden">Пример: {{Задача.A1}}</span>
-								<label for="canvas-size-1" class="settings__label">Ширина</label>
-								<input type="number" id="canvas-size-1" class="settings__input" tabindex="3">
-								<p id="errorCanW" class="settings__block-error"></p>
-							</div>
-							<div class="settings__block-wrap">
-								<label for="canvas-name-2" class="settings__label settings--hidden">Переменная</label>
-								<input type="text" id="canvas-name-2" class="settings__input settings--hidden" value="{{Задача.B1}}" tabindex="2">
-								<span class="settings__example settings--hidden">Пример: {{Задача.B1}}</span>
-								<label for="canvas-size-2" class="settings__label">Высота</label>
-								<input type="number" id="canvas-size-2" class="settings__input" tabindex="4">
-								<p id="errorCanH" class="settings__block-error"></p>
-							</div>
-						</div>
-					</div>
+    <div class="settings pipTableGen__settings settings--pt-0">
+      <div class="settings__form">
+        <div class="settings__flex">
+          <div class="settings__flex-wrap settings__flex-wrap--planfix">
+            <div class="settings__wrap">
+              <p class="settings__title">Размеры Полотна</p>
+              <div class="settings__block">
+                <div class="settings__block-wrap">
+                  <label for="canvas-name-1" class="settings__label settings--hidden">Переменная</label>
+                  <input type="text" id="canvas-name-1" class="settings__input settings--hidden" value="{{Задача.A1}}" tabindex="1">
+                  <span class="settings__example settings--hidden">Пример: {{Задача.A1}}</span>
+                  <label for="canvas-size-1" class="settings__label">Ширина</label>
+                  <input type="number" id="canvas-size-1" class="settings__input" tabindex="3">
+                  <p id="errorCanW" class="settings__block-error"></p>
+                </div>
+                <div class="settings__block-wrap">
+                  <label for="canvas-name-2" class="settings__label settings--hidden">Переменная</label>
+                  <input type="text" id="canvas-name-2" class="settings__input settings--hidden" value="{{Задача.B1}}" tabindex="2">
+                  <span class="settings__example settings--hidden">Пример: {{Задача.B1}}</span>
+                  <label for="canvas-size-2" class="settings__label">Высота</label>
+                  <input type="number" id="canvas-size-2" class="settings__input" tabindex="4">
+                  <p id="errorCanH" class="settings__block-error"></p>
+                </div>
+              </div>
+            </div>
 
-					<div class="settings__wrap">
-						<p class="settings__title">Размеры Ячейки</p>
-						<div class="settings__block">
-							<div class="settings__block-wrap">
-								<label for="cell-size-1" class="settings__label settings--hidden">Переменная</label>
-								<input type="text" id="cell-name-1" class="settings__input settings--hidden" value="{{Задача.C1}}" tabindex="5">
-								<span class="settings__example settings--hidden">Пример: {{Задача.C1}}</span>
-								<label for="cell-size-1" class="settings__label">Размер 1</label>
-								<input type="number" id="cell-size-1" class="settings__input" tabindex="7">
-								<p id="errorCellW" class="settings__block-error"></p>
-							</div>
-							<div class="settings__block-wrap">
-								<label for="cell-size-2" class="settings__label settings--hidden">Переменная</label>
-								<input type="text" id="cell-name-2" class="settings__input settings--hidden" value="{{Задача.D1}}" tabindex="6">
-								<span class="settings__example settings--hidden">Пример: {{Задача.D1}}</span>
-								<label for="cell-size-2" class="settings__label">Размер 2</label>
-								<input type="number" id="cell-size-2" class="settings__input" tabindex="8">
-								<p id="errorCellH" class="settings__block-error"></p>
-							</div>
-						</div>
-					</div>
-				</div>
+            <div class="settings__wrap">
+              <p class="settings__title">Размеры Ячейки</p>
+              <div class="settings__block">
+                <div class="settings__block-wrap">
+                  <label for="cell-size-1" class="settings__label settings--hidden">Переменная</label>
+                  <input type="text" id="cell-name-1" class="settings__input settings--hidden" value="{{Задача.C1}}" tabindex="5">
+                  <span class="settings__example settings--hidden">Пример: {{Задача.C1}}</span>
+                  <label for="cell-size-1" class="settings__label">Размер 1</label>
+                  <input type="number" id="cell-size-1" class="settings__input" tabindex="7">
+                  <p id="errorCellW" class="settings__block-error"></p>
+                </div>
+                <div class="settings__block-wrap">
+                  <label for="cell-size-2" class="settings__label settings--hidden">Переменная</label>
+                  <input type="text" id="cell-name-2" class="settings__input settings--hidden" value="{{Задача.D1}}" tabindex="6">
+                  <span class="settings__example settings--hidden">Пример: {{Задача.D1}}</span>
+                  <label for="cell-size-2" class="settings__label">Размер 2</label>
+                  <input type="number" id="cell-size-2" class="settings__input" tabindex="8">
+                  <p id="errorCellH" class="settings__block-error"></p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-				<div class="settings__wrap">
-					<p class="settings__title"> Доп параметры</p>
-					<div class="settings__block settings__block--column">
-						<div class="settings__block-wrap">
-							<label for="cell-color" class="settings__label">Цвет ячейки</label>
-							<input id="cell-color" class="settings__input jscolor" value="fbfbfb">
-						</div>
-						<div class="settings__block-wrap">
-							<label for="border-color" class="settings__label">Цвет линий</label>
-							<input id="border-color" class="settings__input jscolor" value="afafaf">
-						</div>
-						<div class="settings__block-wrap">
-							<label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
-							<select id="cellContentsOption" class="settings__select">
-								<option value="numbering" selected>Нумерация</option>
-								<option value="empty">Пустые ячейки</option>
-							</select>
-						</div>
-						<div class="settings__block-wrap hidden">
-							<label for="message1" class="settings__label">Сообщение если ячейка больше листа</label>
-							<input type="text" id="message1" class="settings__input" value="Лист меньше бумаги">
-						</div>
-						<div class="settings__block-wrap hidden">
-							<label for="message2" class="settings__label">Сообщение если нет совпадений</label>
-							<input type="text" id="message2" class="settings__input " value="Конец всех исходов">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+          <div class="settings__wrap">
+            <p class="settings__title"> Доп параметры</p>
+            <div class="settings__block settings__block--column">
+              <div class="settings__block-wrap">
+                <label for="cell-color" class="settings__label">Цвет ячейки</label>
+                <input id="cell-color" class="settings__input jscolor" value="fbfbfb">
+              </div>
+              <div class="settings__block-wrap">
+                <label for="border-color" class="settings__label">Цвет линий</label>
+                <input id="border-color" class="settings__input jscolor" value="afafaf">
+              </div>
+              <div class="settings__block-wrap">
+                <label for="cellContentsOption" class="settings__label">Содержимое ячейки</label>
+                <select id="cellContentsOption" class="settings__select">
+                  <option value="numbering" selected>Нумерация</option>
+                  <option value="empty">Пустые ячейки</option>
+                </select>
+              </div>
+              <div class="settings__block-wrap hidden">
+                <label for="message1" class="settings__label">Сообщение если ячейка больше листа</label>
+                <input type="text" id="message1" class="settings__input" value="Лист меньше бумаги">
+              </div>
+              <div class="settings__block-wrap hidden">
+                <label for="message2" class="settings__label">Сообщение если нет совпадений</label>
+                <input type="text" id="message2" class="settings__input " value="Конец всех исходов">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<div class="test">
-			<button class="pipTableGen__gen-btn-1 pipTableGen__btn trigger">Сгенерировать</button>
-			<button class="pipTableGen__copy-btn pipTableGen__btn hidden" disabled>Скопировать</button>
-			<div class="settings__error"></div>
-			<div class="test__build"></div>
-		</div>
+      <div class="test">
+        <button class="pipTableGen__gen-btn-1 pipTableGen__btn trigger">Сгенерировать</button>
+        <button class="pipTableGen__copy-btn pipTableGen__btn hidden" disabled>Скопировать</button>
+        <div class="settings__error"></div>
+        <div class="test__build"></div>
+      </div>
 
-		<div class="pipTableGen__info">
-			<p class="pipTableGen__size">Размер таблицы <span class="pipTableGen__col"></span>X<span
-				class="pipTableGen__row"></span></p>
-			<p class="pipTableGen__amount-text">Количество ячеек - <span class="pipTableGen__amount"></span> шт.</p>
-		</div>
+      <div class="pipTableGen__info">
+        <p class="pipTableGen__size">Размер таблицы <span class="pipTableGen__col"></span>X<span class="pipTableGen__row"></span></p>
+        <p class="pipTableGen__amount-text">Количество ячеек - <span class="pipTableGen__amount"></span> шт.</p>
+      </div>
 
-		<div class="pipTableGen__build">
-			<div class="pipTableGen__build-wrap">
+      <div class="pipTableGen__build">
+        <div class="pipTableGen__build-wrap">
 
-			</div>
-		</div>
+        </div>
+      </div>
 
-	</div>
+    </div>
 
-</div>
+  </div>
 
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jscolor.js"></script>
-<script src="js/script.min.js"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="js/jscolor.js"></script>
+  <script src="js/script.min.js"></script>
 </body>
+
 </html>
