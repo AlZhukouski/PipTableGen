@@ -57,5 +57,22 @@
 	&:hover {
 		box-shadow: 0 0 14px rgb(173, 222, 117);
 	}
+	&:focus {
+		outline: transparent;
+	}
 }
 
+.pipTableGen__copy-btn:disabled {
+	background: rgba(16,16,16,0.3);
+	border-color: #c3c3c3;
+
+	&:hover {
+		box-shadow: unset;
+	}
+}
+
+.pipTableGen__file-size {
+	margin-left: 5px;
+	color: #585858;
+	font-size: 12px;
+}
