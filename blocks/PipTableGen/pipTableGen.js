@@ -4,7 +4,7 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 	let content = '';	//переменная в которую сгенерируется код таблицы
 	let cellContents = 0;	//переменная содержимое ячейки
 	//части таблиц из которых она собирается
-	let tableStart = '', tableEnd = '', tableRowStart = '', tableRowEnd = '', tableDataStart = '', tableDataEnd = '';
+	let  tableStyle = '' , tableStart = '', tableEnd = '', tableRowStart = '', tableRowEnd = '', tableDataStart = '', tableDataEnd = '';
 
 	//Выбираем по парраметру  какую таблицу построить, с кавычками по синтаксису планфикса или html
 	//"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#afafaf""+" rules="+""all""+">
@@ -13,22 +13,25 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 	// </tr>
 	// </table>"
 	if (quotes) {
-		tableStart = '"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all""+">';
+		tableStyle = '"<style>.PIPTABLEGEN td {border-color:#' + borderColor + ';background:#' + bgColor + ';height:' + cellsize2 + 'px;width:' + cellsize1 + 'px;vertical-align:middle;text-align: center}</style>';
+		tableStart = '<table class="PIPTABLEGEN" cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all""+">';
 		tableEnd = '</table>"';
 		tableRowStart = '<tr>';
 		tableRowEnd = '</tr>';
-		tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""' + cellsize2 + '""+" width="+""' + cellsize1 + '""+">';
+		tableDataStart = '<td>';
 		tableDataEnd = '</td>';
 		//без кавычек таблица
 	} else {
-		tableStart = '<table cellpadding="10" border="1" bordercolor="#' + borderColor + '" rules="all">';
+		tableStyle = '<style>.PIPTABLEGEN td {border-color:#' + borderColor + ';background:#' + bgColor + ';height:' + cellsize2 + 'px;width:' + cellsize1 + 'px;vertical-align:middle;text-align: center}</style>';
+		tableStart = '<table class="PIPTABLEGEN" cellpadding="10" border="1" bordercolor="#' + borderColor + '" rules="all">';
 		tableEnd = '</table>';
 		tableRowStart = '<tr>';
 		tableRowEnd = '</tr>';
-		tableDataStart = '<td align="center" valign="center" bgcolor="#' + bgColor + '" height="' + cellsize2 + '" width="' + cellsize1 + '">';
+		tableDataStart = '<td>';
 		tableDataEnd = '</td>';
 	}
 	//собираем таблицу по правилам выше
+	content += tableStyle;
 	content += tableStart;
 	for (let i = 0; i < row; i++) { // выведет 0, затем 1, затем 2
 		content += tableRowStart;
@@ -47,6 +50,9 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 	content += tableEnd;
 	return content;
 }
+
+/***************************************************************/
+
 
 //по проверка на возможность построения таблицы по парраметрам холста и ячейки
 function checkingValues(w1, h1, w2, h2) {
@@ -170,8 +176,11 @@ function tableResult() {
 
 		//Генерация для планфикса диапазона таблиц
 		planfixformula = planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
-	}
 
+		//Размер файла
+		let fileSize=byteLength(planfixformula);
+		$('#fileSize').empty().append((fileSize/1000).toFixed(1) + ' кБайт');
+	}
 }
 
 // функция в которой хранится очистка данных перед построением таблицы
@@ -183,6 +192,8 @@ function dataСleaning() {
 	//очистим значение переменной
 	tableCode = '';
 	planfixformula = '';
+	//очистим размер формулы планфикса
+	$('#fileSize').empty();
 }
 
 //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
@@ -260,6 +271,21 @@ $('.pipTableGen__copy-btn').on('click', function () {
 	});
 });
 
+//функция подсчета размера строки для формулы планфикса например, там ограничения 64кб
+function byteLength(str) {
+	// returns the byte length of an utf8 string
+	var s = str.length;
+	for (var i=str.length-1; i>=0; i--) {
+		var code = str.charCodeAt(i);
+		if (code > 0x7f && code <= 0x7ff) s++;
+		else if (code > 0x7ff && code <= 0xffff) s+=2;
+		if (code >= 0xDC00 && code <= 0xDFFF) i--; //trail surrogate
+	}
+	return s;
+}
+
+
+
 
 //пока не работает
 // функция скачивания файла
@@ -285,13 +311,30 @@ $('.pipTableGen__download-btn').on('click', function () {
 });
 
 
+
+
+
+
+
+
+
+//******************************************************************************************************************
+
+
 // тут активируем урезанную версию скрипта для тети в планфиксе
 
 $('.pipTableGen__gen-btn-1').on('click', tableResult1);
 
-$("body").keypress(function (e) {
+// для тети в планфиксе урезанная версия
+$("body.planfix").keypress(function (e) {
 	if (e.which == 13) {
-		 tableResult1 ();
+		tableResult1 ();
+	}
+});
+//для индекс страницы
+$("body.page").keypress(function (e) {
+	if (e.which == 13) {
+		 tableResult ();
 	}
 });
 

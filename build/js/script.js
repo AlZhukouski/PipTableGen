@@ -7,7 +7,8 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
   var cellContents = 0; //переменная содержимое ячейки
   //части таблиц из которых она собирается
 
-  var tableStart = '',
+  var tableStyle = '',
+      tableStart = '',
       tableEnd = '',
       tableRowStart = '',
       tableRowEnd = '',
@@ -20,22 +21,25 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
   // </table>"
 
   if (quotes) {
-    tableStart = '"<table cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all""+">';
+    tableStyle = '"<style>.PIPTABLEGEN td {border-color:#' + borderColor + ';background:#' + bgColor + ';height:' + cellsize2 + 'px;width:' + cellsize1 + 'px;vertical-align:middle;text-align: center}</style>';
+    tableStart = '<table class="PIPTABLEGEN" cellpadding="+""10""+" border="+""1""+" bordercolor="+""#' + borderColor + '""+" rules="+""all""+">';
     tableEnd = '</table>"';
     tableRowStart = '<tr>';
     tableRowEnd = '</tr>';
-    tableDataStart = '<td align="+""center""+" valign="+""center""+" bgcolor="+""#' + bgColor + '""+" height="+""' + cellsize2 + '""+" width="+""' + cellsize1 + '""+">';
+    tableDataStart = '<td>';
     tableDataEnd = '</td>'; //без кавычек таблица
   } else {
-    tableStart = '<table cellpadding="10" border="1" bordercolor="#' + borderColor + '" rules="all">';
+    tableStyle = '<style>.PIPTABLEGEN td {border-color:#' + borderColor + ';background:#' + bgColor + ';height:' + cellsize2 + 'px;width:' + cellsize1 + 'px;vertical-align:middle;text-align: center}</style>';
+    tableStart = '<table class="PIPTABLEGEN" cellpadding="10" border="1" bordercolor="#' + borderColor + '" rules="all">';
     tableEnd = '</table>';
     tableRowStart = '<tr>';
     tableRowEnd = '</tr>';
-    tableDataStart = '<td align="center" valign="center" bgcolor="#' + bgColor + '" height="' + cellsize2 + '" width="' + cellsize1 + '">';
+    tableDataStart = '<td>';
     tableDataEnd = '</td>';
   } //собираем таблицу по правилам выше
 
 
+  content += tableStyle;
   content += tableStart;
 
   for (var i = 0; i < row; i++) {
@@ -58,7 +62,9 @@ function tableGenerator(row, column, bgColor, borderColor, cellsize1, cellsize2,
 
   content += tableEnd;
   return content;
-} //по проверка на возможность построения таблицы по парраметрам холста и ячейки
+}
+/***************************************************************/
+//по проверка на возможность построения таблицы по парраметрам холста и ячейки
 
 
 function checkingValues(w1, h1, w2, h2) {
@@ -171,7 +177,10 @@ function tableResult() {
 
     $('.pipTableGen__copy-btn').removeAttr("disabled"); //Генерация для планфикса диапазона таблиц
 
-    planfixformula = planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
+    planfixformula = planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, true, W1, H1, W2, H2, message1, message2); //Размер файла
+
+    var fileSize = byteLength(planfixformula);
+    $('#fileSize').empty().append((fileSize / 1000).toFixed(1) + ' кБайт');
   }
 } // функция в которой хранится очистка данных перед построением таблицы
 
@@ -183,7 +192,9 @@ function dataСleaning() {
   $('.pipTableGen__copy-btn').attr("disabled", true); //очистим значение переменной
 
   tableCode = '';
-  planfixformula = '';
+  planfixformula = ''; //очистим размер формулы планфикса
+
+  $('#fileSize').empty();
 } //построим генерацию таблицы для планфикса с учетом всей конструкции и цикла
 
 
@@ -250,8 +261,22 @@ $('.pipTableGen__copy-btn').on('click', function () {
   }, function (err) {
     console.error('Async: Could not copy text: ', err);
   });
-}); //пока не работает
+}); //функция подсчета размера строки для формулы планфикса например, там ограничения 64кб
+
+function byteLength(str) {
+  // returns the byte length of an utf8 string
+  var s = str.length;
+
+  for (var i = str.length - 1; i >= 0; i--) {
+    var code = str.charCodeAt(i);
+    if (code > 0x7f && code <= 0x7ff) s++;else if (code > 0x7ff && code <= 0xffff) s += 2;
+    if (code >= 0xDC00 && code <= 0xDFFF) i--; //trail surrogate
+  }
+
+  return s;
+} //пока не работает
 // функция скачивания файла
+
 
 function writeFile(name, value) {
   var val = value;
@@ -273,12 +298,20 @@ function writeFile(name, value) {
 
 $('.pipTableGen__download-btn').on('click', function () {
   writeFile("123.txt", planfixformula);
-}); // тут активируем урезанную версию скрипта для тети в планфиксе
+}); //******************************************************************************************************************
+// тут активируем урезанную версию скрипта для тети в планфиксе
 
-$('.pipTableGen__gen-btn-1').on('click', tableResult1);
-$("body").keypress(function (e) {
+$('.pipTableGen__gen-btn-1').on('click', tableResult1); // для тети в планфиксе урезанная версия
+
+$("body.planfix").keypress(function (e) {
   if (e.which == 13) {
     tableResult1();
+  }
+}); //для индекс страницы
+
+$("body.page").keypress(function (e) {
+  if (e.which == 13) {
+    tableResult();
   }
 }); //функция построение нужной таблицы с проверками
 

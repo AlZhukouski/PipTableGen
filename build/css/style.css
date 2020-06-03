@@ -278,6 +278,20 @@
   .pipTableGen__btn:hover {
     -webkit-box-shadow: 0 0 14px #adde75;
             box-shadow: 0 0 14px #adde75; }
+  .pipTableGen__btn:focus {
+    outline: transparent; }
+
+.pipTableGen__copy-btn:disabled {
+  background: rgba(16, 16, 16, 0.3);
+  border-color: #c3c3c3; }
+  .pipTableGen__copy-btn:disabled:hover {
+    -webkit-box-shadow: unset;
+            box-shadow: unset; }
+
+.pipTableGen__file-size {
+  margin-left: 5px;
+  color: #585858;
+  font-size: 12px; }
 
 .planfix {
   margin: unset; }
