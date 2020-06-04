@@ -178,8 +178,20 @@ function tableResult() {
 		planfixformula = planfixTablesGen(row, col, bgColor, borderColor, cellWidth, cellHeight, cellContentsOption, true, W1, H1, W2, H2, message1, message2);
 
 		//Размер файла
-		let fileSize=byteLength(planfixformula);
-		$('#fileSize').empty().append((fileSize/1000).toFixed(1) + ' кБайт');
+		let fileSize=byteLength(planfixformula), size="";
+		if (fileSize/1000000000>1) {
+			fileSize=(fileSize/1000000000).toFixed(1);
+			size='Гб';
+		} else if (fileSize/1000000>1) {
+			fileSize=(fileSize/1000000).toFixed(1);
+			size='Мб';
+		} else if (fileSize/1000>1) {
+			fileSize=(fileSize/1000).toFixed(1);
+			size='Кб';
+		} else {
+			size='Байт';
+		}
+		$('#fileSize').empty().append(fileSize + ' ' + size );
 	}
 }
 
