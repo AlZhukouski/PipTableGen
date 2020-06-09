@@ -399,6 +399,10 @@ document.addEventListener('DOMContentLoaded', function () {
     return p;
   }, {});
   console.log(params);
+  $('#canvas-size-1').val(params.canvasW);
+  $('#canvas-size-2').val(params.canvasH);
+  $('#cell-size-1').val(params.cellW);
+  $('#cell-size-2').val(params.cellH);
 });
 "use strict";
 
